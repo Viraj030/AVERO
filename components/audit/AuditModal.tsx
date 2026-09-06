@@ -57,7 +57,7 @@ export function AuditModal({ open, onClose, prefillSpend }: AuditModalProps) {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2, ease: [0.23, 1, 0.32, 1] }}
             onClick={onClose}
-            className="absolute inset-0 bg-navy-900/70 backdrop-blur-sm"
+            className="absolute inset-0 bg-navy-900/80 backdrop-blur-md"
             aria-hidden="true"
           />
 
@@ -71,16 +71,16 @@ export function AuditModal({ open, onClose, prefillSpend }: AuditModalProps) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 16, scale: 0.98 }}
             transition={{ duration: 0.26, ease: [0.23, 1, 0.32, 1] }}
-            className="avero-focus relative w-full max-w-[540px] overflow-hidden rounded-t-[18px] border border-navy/10 bg-white shadow-2xl sm:rounded-[18px]"
+            className="avero-focus avero-grid-lines relative w-full max-w-[540px] overflow-hidden rounded-t-[18px] border border-white/15 bg-navy-900 text-white shadow-2xl sm:rounded-[18px]"
           >
-            <div className="flex items-center justify-between border-b border-navy/10 px-6 py-4">
+            <div className="flex items-center justify-between border-b border-white/10 px-6 py-4">
               <div>
-                <p className="font-mono text-[11px] font-semibold uppercase tracking-eyebrow text-navy">
+                <p className="font-mono text-[11px] font-semibold uppercase tracking-eyebrow text-gold">
                   15-Minute Ad Audit
                 </p>
                 <p
                   id="audit-modal-title"
-                  className="mt-1 font-display text-[17px] font-bold text-navy"
+                  className="mt-1 font-display text-[17px] font-bold text-white"
                 >
                   {status === 'success' ? 'Request received' : stepTitles[step]}
                 </p>
@@ -89,22 +89,22 @@ export function AuditModal({ open, onClose, prefillSpend }: AuditModalProps) {
                 type="button"
                 onClick={onClose}
                 aria-label="Close audit request"
-                className="avero-focus flex h-9 w-9 items-center justify-center rounded-[10px] border border-navy/12 text-navy transition-colors duration-200 ease-premium hover:border-navy/30 hover:bg-navy/5"
+                className="avero-focus flex h-9 w-9 items-center justify-center rounded-[10px] border border-white/20 text-white transition-colors duration-200 ease-premium hover:border-gold hover:bg-white/10"
               >
-                <XIcon className="h-4 w-4" aria-hidden="true" />
+                <XIcon className="h-4 w-4 text-white" aria-hidden="true" />
               </button>
             </div>
 
             {status !== 'success' && (
-              <div className="flex items-center gap-3 border-b border-navy/10 px-6 py-3">
-                <span className="font-mono text-[12px] font-semibold tabular-nums text-navy">
+              <div className="flex items-center gap-3 border-b border-white/10 px-6 py-3">
+                <span className="font-mono text-[12px] font-semibold tabular-nums text-gold">
                   {String(step + 1).padStart(2, '0')} / {String(TOTAL_STEPS).padStart(2, '0')}
                 </span>
                 <span className="flex flex-1 gap-1.5">
                   {Array.from({ length: TOTAL_STEPS }).map((_, i) => (
                     <span
                       key={i}
-                      className="h-[4px] flex-1 overflow-hidden rounded-full bg-navy/15"
+                      className="h-[4px] flex-1 overflow-hidden rounded-full bg-white/15"
                     >
                       <motion.span
                         className="block h-full bg-gold"
@@ -223,9 +223,9 @@ export function AuditModal({ open, onClose, prefillSpend }: AuditModalProps) {
                     type="button"
                     onClick={form.back}
                     disabled={step === 0}
-                    className="avero-focus inline-flex items-center gap-1.5 rounded-[10px] px-1 py-2 text-[13.5px] font-semibold text-navy transition-colors duration-200 ease-premium hover:text-gold-deep disabled:opacity-0"
+                    className="avero-focus inline-flex items-center gap-1.5 rounded-[10px] px-1 py-2 text-[13.5px] font-semibold text-white transition-colors duration-200 ease-premium hover:text-gold disabled:opacity-0"
                   >
-                    <ArrowLeftIcon className="h-3.5 w-3.5" aria-hidden="true" />
+                    <ArrowLeftIcon className="h-3.5 w-3.5 text-white" aria-hidden="true" />
                     Back
                   </button>
 
@@ -248,7 +248,7 @@ export function AuditModal({ open, onClose, prefillSpend }: AuditModalProps) {
                   )}
                 </div>
 
-                <p className="mt-5 border-t border-navy/10 pt-4 font-mono text-[11px] font-semibold uppercase leading-[1.7] tracking-eyebrow text-navy/80">
+                <p className="mt-5 border-t border-white/10 pt-4 font-mono text-[11px] font-semibold uppercase leading-[1.7] tracking-eyebrow text-white/70">
                   No long sales presentation · Just the problems and priorities
                 </p>
               </form>
@@ -271,20 +271,20 @@ function SuccessPanel({ onDone, email }: { onDone: () => void; email: string }) 
     >
       <span
         aria-hidden="true"
-        className="mx-auto flex h-12 w-12 items-center justify-center rounded-full border border-gold/50 bg-gold/10 text-gold-deep"
+        className="mx-auto flex h-12 w-12 items-center justify-center rounded-full border border-gold/50 bg-gold/10 text-gold"
       >
-        <CheckIcon className="h-5 w-5" />
+        <CheckIcon className="h-5 w-5 text-gold" />
       </span>
-      <h3 className="mt-5 font-display text-[22px] font-semibold tracking-[-0.02em] text-navy">
+      <h3 className="mt-5 font-display text-[22px] font-semibold tracking-[-0.02em] text-white">
         Your audit request is in.
       </h3>
-      <p className="mx-auto mt-3 max-w-[38ch] text-[14.5px] leading-[1.7] text-charcoal/70">
+      <p className="mx-auto mt-3 max-w-[38ch] text-[14.5px] leading-[1.7] text-white/75">
         We&rsquo;ll review the account details and reply to{' '}
-        <span className="font-medium text-navy">{email}</span> with a time and
+        <span className="font-medium text-gold">{email}</span> with a time and
         what we&rsquo;ll need access to.
       </p>
       <div className="mt-7 flex justify-center">
-        <Button variant="secondary" onClick={onDone}>
+        <Button variant="onDark" onClick={onDone}>
           Close
         </Button>
       </div>
@@ -319,7 +319,7 @@ function Field({
     <div>
       <label
         htmlFor={id}
-        className="block font-mono text-[11px] font-semibold uppercase tracking-eyebrow text-navy/75"
+        className="block font-mono text-[11px] font-semibold uppercase tracking-eyebrow text-white/80"
       >
         {label}
       </label>
@@ -333,12 +333,12 @@ function Field({
         aria-invalid={Boolean(error)}
         aria-describedby={error ? `${id}-error` : undefined}
         onChange={(e) => onChange(e.target.value)}
-        className={`avero-focus mt-1.5 h-10 w-full rounded-[10px] border bg-white px-3.5 text-[14px] text-charcoal transition-colors duration-200 ease-premium placeholder:text-charcoal/45 ${
-          error ? 'border-red-500 bg-red-50/40' : 'border-navy/20 hover:border-navy/40'
+        className={`avero-focus mt-1.5 h-10 w-full rounded-[10px] border bg-navy-800/80 px-3.5 text-[14px] text-white transition-colors duration-200 ease-premium placeholder:text-white/40 ${
+          error ? 'border-red-500 bg-red-950/40' : 'border-white/20 hover:border-white/40 focus:border-gold'
         }`}
       />
       {error && (
-        <p id={`${id}-error`} className="mt-1 text-[12px] text-red-500 font-medium">
+        <p id={`${id}-error`} className="mt-1 text-[12px] text-red-400 font-medium">
           {error}
         </p>
       )}

@@ -41,8 +41,8 @@ export function OptionGroup({
               key={option}
               className={`group relative flex cursor-pointer items-center gap-3 rounded-[12px] border px-4 py-3.5 transition-[border-color,background-color] duration-200 ease-premium ${
                 selected
-                  ? 'border-gold bg-gold/[0.08]'
-                  : 'border-navy/15 hover:border-navy/35'
+                  ? 'border-gold bg-gold/15 text-white shadow-[0_0_15px_rgba(212,175,55,0.2)]'
+                  : 'border-white/15 bg-navy-800/60 text-white/80 hover:border-gold/50 hover:bg-navy-800'
               }`}
             >
               <input
@@ -66,12 +66,12 @@ export function OptionGroup({
                 } ${
                   selected
                     ? 'border-gold bg-gold text-navy-900'
-                    : 'border-navy/25 text-transparent'
+                    : 'border-white/30 text-transparent'
                 }`}
               >
-                <CheckIcon className="h-3 w-3" />
+                <CheckIcon className="h-3 w-3 text-navy-900 stroke-[3]" />
               </span>
-              <span className="text-[15px] font-medium text-navy">{option}</span>
+              <span className="text-[15px] font-medium text-white">{option}</span>
             </label>
           );
         })}
