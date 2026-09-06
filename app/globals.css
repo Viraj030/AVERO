@@ -1,0 +1,123 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background-color: #ffffff;
+  color: #1f2933;
+  font-family: var(--font-inter), system-ui, sans-serif;
+}
+
+:root {
+  --avero-navy: #123b6d;
+  --avero-gold: #d4af37;
+}
+
+::selection {
+  background-color: #d4af37;
+  color: #123b6d;
+}
+
+.avero-focus:focus-visible {
+  outline: 2px solid #d4af37;
+  outline-offset: 3px;
+}
+
+.avero-grid-lines {
+  background-image: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0.05) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.avero-grid-lines-light {
+  background-image: linear-gradient(
+      to right,
+      rgba(18, 59, 109, 0.06) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to bottom, rgba(18, 59, 109, 0.06) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* Range inputs used by the leak calculator */
+.avero-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 22px;
+  background: transparent;
+  cursor: grab;
+}
+
+.avero-range:active {
+  cursor: grabbing;
+}
+
+.avero-range::-webkit-slider-runnable-track {
+  height: 3px;
+  background: rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+}
+
+.avero-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 16px;
+  width: 16px;
+  margin-top: -6.5px;
+  border-radius: 999px;
+  background: #ffffff;
+  border: 3px solid #0c2846;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.35);
+  transition:
+    transform 180ms cubic-bezier(0.23, 1, 0.32, 1),
+    background-color 180ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.avero-range:hover::-webkit-slider-thumb,
+.avero-range:focus-visible::-webkit-slider-thumb {
+  transform: scale(1.12);
+  background: #d4af37;
+}
+
+.avero-range::-moz-range-track {
+  height: 3px;
+  background: rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+}
+
+.avero-range::-moz-range-thumb {
+  height: 16px;
+  width: 16px;
+  border-radius: 999px;
+  background: #ffffff;
+  border: 3px solid #0c2846;
+}
+
+.avero-range:focus-visible {
+  outline: 2px solid #d4af37;
+  outline-offset: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
