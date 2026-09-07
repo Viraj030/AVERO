@@ -9,6 +9,8 @@ interface AuditModalContextType {
   closeAudit: () => void;
   isAuditOpen: boolean;
   prefillSpend?: string;
+  prefillObjective?: string;
+  openAuditWithObjective?: (objective?: string) => void;
 }
 
 const AuditModalContext = createContext<AuditModalContextType>({
@@ -22,14 +24,23 @@ const AuditModalContext = createContext<AuditModalContextType>({
 export function AuditModalProvider({ children }: { children: React.ReactNode }) {
   const [isAuditOpen, setIsAuditOpen] = useState(false);
   const [prefillSpend, setPrefillSpend] = useState<string | undefined>();
+  const [prefillObjective, setPrefillObjective] = useState<string | undefined>();
 
   const openAudit = useCallback(() => {
     setPrefillSpend(undefined);
+    setPrefillObjective(undefined);
     setIsAuditOpen(true);
   }, []);
 
   const openAuditWithSpend = useCallback((spend?: string) => {
     setPrefillSpend(spend);
+    setPrefillObjective(undefined);
+    setIsAuditOpen(true);
+  }, []);
+
+  const openAuditWithObjective = useCallback((objective?: string) => {
+    setPrefillSpend(undefined);
+    setPrefillObjective(objective);
     setIsAuditOpen(true);
   }, []);
 
@@ -42,9 +53,11 @@ export function AuditModalProvider({ children }: { children: React.ReactNode }) 
       value={{
         openAudit,
         openAuditWithSpend,
+        openAuditWithObjective,
         closeAudit,
         isAuditOpen,
         prefillSpend,
+        prefillObjective,
       }}
     >
       {children}
@@ -52,6 +65,7 @@ export function AuditModalProvider({ children }: { children: React.ReactNode }) 
         open={isAuditOpen}
         onClose={closeAudit}
         prefillSpend={prefillSpend}
+        prefillObjective={prefillObjective}
       />
     </AuditModalContext.Provider>
   );

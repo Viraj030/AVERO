@@ -58,7 +58,7 @@ export default function Page() {
           <WhyAvero />
 
           {/* 13. Fit */}
-          <Qualification />
+          {/* <Qualification /> */}
 
           {/* 14. FAQ */}
           <FAQ />

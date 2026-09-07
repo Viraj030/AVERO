@@ -19,7 +19,7 @@ export const faqItems: FaqItem[] = [
   },
   {
     q: 'What ad spend level do you typically work with?',
-    a: 'We work best with businesses already spending meaningfully — typically ₹1,00,000+ per month — where inefficiency is large enough to be worth systematically removing.'
+    a: 'We work with businesses at every stage — from new brands making their first investment in ads to established businesses scaling significant budgets. Our approach is tailored to your goals, budget, and growth stage.'
   },
   {
     q: 'Do you work internationally?',

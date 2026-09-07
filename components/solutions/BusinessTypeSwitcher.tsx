@@ -16,7 +16,15 @@ interface BusinessTypeSwitcherProps {
 
 export function BusinessTypeSwitcher({ onOpenAudit }: BusinessTypeSwitcherProps) {
   const modal = useAuditModal();
-  const handleOpenAudit = onOpenAudit || modal.openAudit;
+  const handleOpenAudit = () => {
+    if (onOpenAudit) {
+      onOpenAudit();
+    } else if (modal.openAuditWithObjective) {
+      modal.openAuditWithObjective(businessPanels[active].label);
+    } else {
+      modal.openAudit();
+    }
+  };
 
   const [active, setActive] = useState<BusinessType>('ecommerce');
   const panel = businessPanels[active];
@@ -43,7 +51,7 @@ export function BusinessTypeSwitcher({ onOpenAudit }: BusinessTypeSwitcherProps)
         <div
           role="tablist"
           aria-label="Business type"
-          className="flex w-full justify-around lg:inline-flex lg:w-auto shrink-0 rounded-[12px] border border-navy/15 p-1"
+          className="inline-flex mx-auto lg:mx-0 shrink-0 rounded-[12px] border border-navy/15 p-1"
         >
           {businessOrder.map((id) => {
             const isActive = id === active;
@@ -55,9 +63,8 @@ export function BusinessTypeSwitcher({ onOpenAudit }: BusinessTypeSwitcherProps)
                 aria-selected={isActive}
                 aria-controls={`panel-${id}`}
                 onClick={() => setActive(id)}
-                className={`avero-focus relative rounded-[9px] px-5 py-2.5 text-[14px] font-medium transition-colors duration-200 ease-premium ${
-                  isActive ? 'text-white' : 'text-charcoal/65 hover:text-navy'
-                }`}
+                className={`avero-focus relative rounded-[9px] px-3 sm:px-5 py-2 sm:py-2.5 text-[13px] sm:text-[14px] font-medium transition-colors duration-200 ease-premium ${isActive ? 'text-white' : 'text-charcoal/65 hover:text-navy'
+                  }`}
               >
                 {isActive && (
                   <motion.span
@@ -151,9 +158,8 @@ export function BusinessTypeSwitcher({ onOpenAudit }: BusinessTypeSwitcherProps)
                     </span>
                     <span className="h-[6px] flex-1 overflow-hidden rounded-full bg-navy/[0.08]">
                       <motion.span
-                        className={`block h-full rounded-full ${
-                          i === 0 ? 'bg-navy' : 'bg-navy/35'
-                        }`}
+                        className={`block h-full rounded-full ${i === 0 ? 'bg-navy' : 'bg-navy/35'
+                          }`}
                         initial={{ width: 0 }}
                         animate={{ width: `${bar.value}%` }}
                         transition={{

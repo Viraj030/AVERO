@@ -31,7 +31,7 @@ export function LeakVisualization() {
             poor landing pages, broken tracking, or low-quality leads.
           </p>
 
-          <dl className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-card border border-navy/10 bg-navy/10">
+          <dl className="mt-10 hidden lg:grid grid-cols-2 gap-px overflow-hidden rounded-card border border-navy/10 bg-navy/10">
             <Stat label="Spend entering the system" value="₹1,00,000" />
             <Stat label="Revenue leaving it" value="₹27,890" accent />
           </dl>
@@ -103,6 +103,11 @@ export function LeakVisualization() {
               </li>
             ))}
           </ol>
+
+          <dl className="mt-10 lg:hidden grid grid-cols-2 gap-px overflow-hidden rounded-card border border-navy/10 bg-navy/10">
+            <Stat label="Spend entering the system" value="₹1,00,000" />
+            <Stat label="Revenue leaving it" value="₹27,890" accent />
+          </dl>
 
           <p className="mt-6 font-mono text-[11px] font-semibold uppercase tracking-eyebrow text-navy/70">
             Illustrative funnel · loss rates vary by account

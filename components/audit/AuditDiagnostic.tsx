@@ -68,7 +68,7 @@ export function AuditDiagnostic({ onOpenAudit }: AuditDiagnosticProps) {
   const statusWeight = { clear: 100, watch: 58, leak: 18 } as const;
   const healthScore = Math.round(
     auditChecks.reduce((sum, c) => sum + statusWeight[c.status], 0) /
-      auditChecks.length
+    auditChecks.length
   );
   const activeCheck =
     auditChecks.find((c) => c.id === selected) ??
@@ -159,19 +159,17 @@ export function AuditDiagnostic({ onOpenAudit }: AuditDiagnosticProps) {
                       setSelected((prev) => (prev === check.id ? null : check.id))
                     }
                     aria-pressed={isSelected}
-                    className={`avero-focus flex w-full items-center gap-3.5 px-5 py-3 text-left transition-colors duration-200 ease-premium ${
-                      done ? 'hover:bg-white/[0.05]' : 'cursor-default'
-                    } ${isSelected ? 'bg-white/[0.06]' : ''}`}
+                    className={`avero-focus flex w-full items-center gap-3.5 px-5 py-3 text-left transition-colors duration-200 ease-premium ${done ? 'hover:bg-white/[0.05]' : 'cursor-default'
+                      } ${isSelected ? 'bg-white/[0.06]' : ''}`}
                   >
                     <span
                       aria-hidden="true"
-                      className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-[5px] border transition-colors duration-300 ease-premium ${
-                        done
-                          ? check.status === 'leak'
-                            ? 'border-gold/60 bg-gold/15 text-gold'
-                            : 'border-white/25 text-white/70'
-                          : 'border-white/10 text-transparent'
-                      }`}
+                      className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-[5px] border transition-colors duration-300 ease-premium ${done
+                        ? check.status === 'leak'
+                          ? 'border-gold/60 bg-gold/15 text-gold'
+                          : 'border-white/25 text-white/70'
+                        : 'border-white/10 text-transparent'
+                        }`}
                     >
                       {done &&
                         (check.status === 'leak' ? (
@@ -183,30 +181,26 @@ export function AuditDiagnostic({ onOpenAudit }: AuditDiagnosticProps) {
 
                     <span className="min-w-0 flex-1">
                       <span
-                        className={`block text-[13.5px] transition-colors duration-300 ease-premium ${
-                          done ? 'text-white/90' : 'text-white/25'
-                        }`}
+                        className={`block text-[13.5px] transition-colors duration-300 ease-premium ${done ? 'text-white/90' : 'text-white/25'
+                          }`}
                       >
                         {check.label}
                       </span>
                       <span
-                        className={`mt-0.5 block truncate text-[11.5px] transition-colors duration-300 ease-premium ${
-                          done ? 'text-white/40' : 'text-white/15'
-                        }`}
+                        className={`mt-0.5 block truncate text-[11.5px] transition-colors duration-300 ease-premium ${done ? 'text-white/40' : 'text-white/15'
+                          }`}
                       >
                         {check.detail}
                       </span>
                     </span>
 
                     <span
-                      className={`flex shrink-0 items-center gap-2 font-mono text-[10px] uppercase tracking-eyebrow ${
-                        done ? style.text : 'text-white/15'
-                      }`}
+                      className={`flex shrink-0 items-center gap-2 font-mono text-[10px] uppercase tracking-eyebrow ${done ? style.text : 'text-white/15'
+                        }`}
                     >
                       <span
-                        className={`inline-block h-1.5 w-1.5 rounded-full ${
-                          done ? style.dot : 'bg-white/10'
-                        }`}
+                        className={`inline-block h-1.5 w-1.5 rounded-full ${done ? style.dot : 'bg-white/10'
+                          }`}
                         aria-hidden="true"
                       />
                       {done ? style.label : 'Queued'}
@@ -242,9 +236,9 @@ export function AuditDiagnostic({ onOpenAudit }: AuditDiagnosticProps) {
                     {activeCheck.finding}
                   </p>
                 )}
-                <p className="mt-3 font-mono text-[10px] uppercase tracking-eyebrow text-white/30">
+                {/* <p className="mt-3 font-mono text-[10px] uppercase tracking-eyebrow text-white/30">
                   Select any line to inspect the finding
-                </p>
+                </p> */}
               </motion.div>
             ) : (
               <p className="font-mono text-[11px] uppercase tracking-eyebrow text-white/40">

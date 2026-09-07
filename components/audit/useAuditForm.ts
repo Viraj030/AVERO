@@ -34,9 +34,18 @@ export function useAuditForm(onClose: () => void) {
     });
   }, []);
 
-  const applyPrefill = useCallback((spendValue?: string) => {
-    if (!spendValue) return;
-    setLead((prev) => (prev.spend ? prev : { ...prev, spend: spendValue }));
+  const applyPrefill = useCallback((spendValue?: string, objectiveValue?: string) => {
+    setLead((prev) => {
+      let next = prev;
+      if (spendValue && !prev.spend) next = { ...next, spend: spendValue };
+      if (objectiveValue && !prev.objective) next = { ...next, objective: objectiveValue };
+      return next;
+    });
+    if (objectiveValue) {
+      setStep(1);
+    } else {
+      setStep(0);
+    }
   }, []);
 
   const toggleChannel = useCallback((value: string) => {
@@ -101,13 +110,17 @@ export function useAuditForm(onClose: () => void) {
     [validateFinal, lead]
   );
 
-  const reset = useCallback(() => {
+  const resetForm = useCallback(() => {
     setStep(0);
     setLead(emptyLead);
     setStatus('idle');
     setErrors({});
+  }, []);
+
+  const reset = useCallback(() => {
+    resetForm();
     onClose();
-  }, [onClose]);
+  }, [resetForm, onClose]);
 
   const selectAndNext = useCallback(<K extends keyof AuditLead>(key: K, value: AuditLead[K]) => {
     setLead((prev) => ({ ...prev, [key]: value }));
@@ -144,6 +157,7 @@ export function useAuditForm(onClose: () => void) {
     next,
     back,
     submit,
-    reset
+    reset,
+    resetForm
   };
 }

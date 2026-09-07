@@ -12,6 +12,7 @@ interface AuditModalProps {
   onClose: () => void;
   /** Spend bucket carried in from the leak calculator, if any. */
   prefillSpend?: string;
+  prefillObjective?: string;
 }
 
 const stepTitles = [
@@ -21,14 +22,19 @@ const stepTitles = [
   'Where should we send the diagnosis?'
 ];
 
-export function AuditModal({ open, onClose, prefillSpend }: AuditModalProps) {
+export function AuditModal({ open, onClose, prefillSpend, prefillObjective }: AuditModalProps) {
   const form = useAuditForm(onClose);
   const panelRef = useRef<HTMLDivElement>(null);
-  const { applyPrefill } = form;
+  const { applyPrefill, resetForm } = form;
 
   useEffect(() => {
-    if (open) applyPrefill(prefillSpend);
-  }, [open, prefillSpend, applyPrefill]);
+    if (open) {
+      applyPrefill(prefillSpend, prefillObjective);
+    } else {
+      const timer = setTimeout(() => resetForm(), 300);
+      return () => clearTimeout(timer);
+    }
+  }, [open, prefillSpend, prefillObjective, applyPrefill, resetForm]);
 
   useEffect(() => {
     if (!open) return;

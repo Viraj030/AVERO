@@ -61,7 +61,7 @@ export function PerformanceFramework() {
             aria-hidden="true"
           />
 
-          <ol className="grid gap-10 lg:grid-cols-3 lg:gap-12">
+          <ol className="flex flex-nowrap overflow-x-auto pb-6 md:pb-0 md:grid md:grid-cols-3 gap-6 md:gap-10 lg:gap-12 snap-x snap-mandatory hide-scrollbar">
             {stages.map((stage, i) => (
               <motion.li
                 key={stage.index}
@@ -72,18 +72,18 @@ export function PerformanceFramework() {
                   delay: 0.15 + i * 0.14,
                   ease: [0.23, 1, 0.32, 1]
                 }}
-                className="relative lg:pr-8"
+                className="relative lg:pr-8 w-[85vw] md:w-auto shrink-0 snap-center"
               >
                 <span
                   className="absolute left-0 top-[3px] hidden h-[9px] w-[9px] rotate-45 bg-gold lg:block"
                   aria-hidden="true"
                 />
 
-                <div className="lg:pt-10">
-                  <p className="font-mono text-[11px] uppercase tracking-eyebrow text-gold">
+                <div className="lg:pt-10 pt-6">
+                  <p className="font-mono text-[13px] md:text-[14px] uppercase tracking-eyebrow text-gold font-semibold">
                     {stage.index} — {stage.title}
                   </p>
-                  <p className="mt-4 max-w-[38ch] text-[15.5px] leading-[1.7] text-white/70">
+                  <p className="mt-4 max-w-[38ch] text-[16px] md:text-[18px] leading-[1.6] text-white/85">
                     {stage.copy}
                   </p>
                 </div>
