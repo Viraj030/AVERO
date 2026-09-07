@@ -43,7 +43,7 @@ export function BusinessTypeSwitcher({ onOpenAudit }: BusinessTypeSwitcherProps)
         <div
           role="tablist"
           aria-label="Business type"
-          className="inline-flex shrink-0 rounded-[12px] border border-navy/15 p-1"
+          className="flex w-full justify-around lg:inline-flex lg:w-auto shrink-0 rounded-[12px] border border-navy/15 p-1"
         >
           {businessOrder.map((id) => {
             const isActive = id === active;

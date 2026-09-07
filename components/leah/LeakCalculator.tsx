@@ -41,18 +41,16 @@ export function LeakCalculator({ onOpenAudit }: LeakCalculatorProps) {
 
       <div className="relative grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-16">
         <div>
-          <Eyebrow tone="dark">Leak model</Eyebrow>
+          <Eyebrow tone="dark">FIND THE LEAKS</Eyebrow>
           <h2
             id="calculator-heading"
             className="mt-6 max-w-[18ch] font-display text-[32px] font-semibold leading-[1.08] tracking-[-0.025em] sm:text-[42px]"
           >
-            Size the leak before you{' '}
-            <span className="text-gold">spend another dollar.</span>
+            Find your ad spend leaks before spending another{' '}
+            <span className="text-gold">Rupee</span>
           </h2>
           <p className="mt-6 max-w-[46ch] text-[15.5px] leading-[1.7] text-white/65">
-            Move the four inputs that decide your economics. The model reallocates
-            half of identified waste, applies a capped conversion improvement, and
-            recovers under-measured conversions. Conservative by design.
+            Enter your current ad spend, ROAS, and conversion rate to uncover where your budget is being wasted and identify the biggest opportunities to improve your returns.
           </p>
 
           <div className="mt-10 space-y-7 rounded-card border border-white/10 bg-white/[0.03] p-6">
@@ -166,9 +164,8 @@ export function LeakCalculator({ onOpenAudit }: LeakCalculatorProps) {
                     </span>
                     <span className="h-[4px] flex-1 overflow-hidden rounded-full bg-white/10">
                       <motion.span
-                        className={`block h-full rounded-full ${
-                          i === 0 ? 'bg-gold' : 'bg-white/40'
-                        }`}
+                        className={`block h-full rounded-full ${i === 0 ? 'bg-gold' : 'bg-white/40'
+                          }`}
                         animate={{ width: `${driver.share}%` }}
                         transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
                       />
@@ -272,9 +269,8 @@ function Readout({
         {label}
       </dt>
       <dd
-        className={`mt-1.5 font-display text-[22px] font-semibold tabular-nums ${
-          accent ? 'text-gold' : 'text-white/80'
-        }`}
+        className={`mt-1.5 font-display text-[22px] font-semibold tabular-nums ${accent ? 'text-gold' : 'text-white/80'
+          }`}
       >
         {value}
       </dd>

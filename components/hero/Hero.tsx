@@ -15,10 +15,7 @@ export function Hero({ onOpenAudit }: HeroProps) {
       aria-labelledby="hero-heading"
       className="relative w-full overflow-hidden bg-offwhite px-5 pb-20 pt-[104px] sm:px-8 lg:pb-28 lg:pt-[132px]"
     >
-      <div
-        className="avero-grid-lines-light pointer-events-none absolute inset-0 [mask-image:radial-gradient(80%_60%_at_50%_0%,black,transparent)]"
-        aria-hidden="true"
-      />
+
 
       <div className="relative mx-auto grid w-full max-w-shell items-center gap-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] lg:gap-16">
         <div>
@@ -46,19 +43,18 @@ export function Hero({ onOpenAudit }: HeroProps) {
           </h1>
 
           <p className="mt-7 max-w-[52ch] text-[17px] leading-[1.65] text-charcoal/75 sm:text-[18px]">
-            Give me 15 minutes. I&rsquo;ll show you where your ads are losing
-            money — and what I&rsquo;d fix first.
+            Give us 15 minutes. We'll identify where your paid traffic is leaking money — from the ad to the checkout.
           </p>
 
           <HeroCtaButtons onOpenAudit={onOpenAudit} />
 
-          <p className="mt-8 font-mono text-[11px] font-medium uppercase tracking-eyebrow text-navy/75">
+          {/* <p className="mt-8 font-mono text-[11px] font-medium uppercase tracking-eyebrow text-navy/75">
             Meta Ads · Google Ads · CRO · Tracking
-          </p>
+          </p> */}
         </div>
 
         <div>
-          <HeroAuditForm id="free-audit-form" />
+          <HeroAuditForm id="audit-form" />
         </div>
       </div>
     </section>

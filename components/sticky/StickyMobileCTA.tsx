@@ -53,7 +53,7 @@ export function StickyMobileCTA({ onOpenAudit, hidden }: StickyMobileCTAProps) {
                 </span>
                 <div className="flex flex-col text-left">
                   <span className="font-display text-[16.5px] font-extrabold text-white leading-tight">
-                    Get Free 15-Min Audit
+                    Get My 15-Mins Audit
                   </span>
                   <span className="font-mono text-[11px] font-bold text-gold uppercase tracking-wider">
                     Find Ad Leaks Now →
@@ -108,7 +108,7 @@ export function StickyMobileCTA({ onOpenAudit, hidden }: StickyMobileCTAProps) {
 
               <div className="flex flex-col text-left">
                 <span className="font-display text-sm font-bold text-white tracking-wide">
-                  Get Free 15-Min Audit
+                  Get My 15-Mins Audit
                 </span>
                 <span className="font-mono text-[10.5px] font-bold text-gold uppercase tracking-wider flex items-center gap-1">
                   Find Ad Leaks Now

@@ -16,7 +16,7 @@ export function HeroCtaButtons({ onOpenAudit }: HeroCtaButtonsProps) {
   return (
     <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
       <Button size="lg" onClick={handleOpenAudit} aria-haspopup="dialog">
-        Get My 15-Minute Ad Audit
+        Get My 15-Mins Audit
         <ArrowRightIcon
           className="h-4 w-4 transition-transform duration-200 ease-premium group-hover:translate-x-1"
           aria-hidden="true"

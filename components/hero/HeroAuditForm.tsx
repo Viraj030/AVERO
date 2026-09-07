@@ -9,7 +9,7 @@ interface HeroAuditFormProps {
   onSuccess?: () => void;
 }
 
-export function HeroAuditForm({ id = 'free-audit-form', onSuccess }: HeroAuditFormProps) {
+export function HeroAuditForm({ id = 'audit-form', onSuccess }: HeroAuditFormProps) {
   const [fullName, setFullName] = useState('');
   const [phone, setPhone] = useState('');
   const [website, setWebsite] = useState('');
@@ -76,7 +76,7 @@ export function HeroAuditForm({ id = 'free-audit-form', onSuccess }: HeroAuditFo
         <div className="flex items-center justify-between">
           <div className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/10 px-3 py-1 font-mono text-[11px] font-semibold uppercase tracking-wider text-gold">
             <span className="h-2 w-2 rounded-full bg-gold animate-pulse" />
-            Free Account Diagnostic
+            Account Diagnostic
           </div>
           <div className="flex items-center gap-1 text-amber-400 text-xs font-semibold bg-white/10 px-2.5 py-1 rounded-full border border-white/15">
             <div className="flex text-amber-400 gap-0.5">
@@ -88,9 +88,9 @@ export function HeroAuditForm({ id = 'free-audit-form', onSuccess }: HeroAuditFo
           </div>
         </div>
         <h3 className="mt-3 font-display text-2xl font-semibold text-white">
-          Get Your 15-Minute Free Ad Audit
+          Get My 15-Mins Audit
         </h3>
-        <p className="mt-1 text-xs text-white/65">
+        <p className="mt-2 text-[15px] leading-[1.6] text-white/70">
           Fill in your details to get a direct teardown of where your ad budget is leaking.
         </p>
       </div>
@@ -123,11 +123,10 @@ export function HeroAuditForm({ id = 'free-audit-form', onSuccess }: HeroAuditFo
             placeholder="e.g. 9876543210"
             value={phone}
             onChange={handlePhoneChange}
-            className={`mt-1.5 w-full rounded-lg border px-3.5 py-2.5 text-sm text-white placeholder:text-white/40 focus:bg-navy-800 focus:outline-none focus:ring-2 transition-colors ${
-              phoneError
-                ? 'border-red-400 bg-red-950/40 focus:border-red-500 focus:ring-red-400/30'
-                : 'border-white/20 bg-navy-800/80 focus:border-gold focus:ring-gold/30'
-            }`}
+            className={`mt-1.5 w-full rounded-lg border px-3.5 py-2.5 text-sm text-white placeholder:text-white/40 focus:bg-navy-800 focus:outline-none focus:ring-2 transition-colors ${phoneError
+              ? 'border-red-400 bg-red-950/40 focus:border-red-500 focus:ring-red-400/30'
+              : 'border-white/20 bg-navy-800/80 focus:border-gold focus:ring-gold/30'
+              }`}
           />
           {phoneError && (
             <p className="mt-1 text-xs text-red-400">{phoneError}</p>
@@ -174,9 +173,9 @@ export function HeroAuditForm({ id = 'free-audit-form', onSuccess }: HeroAuditFo
           </Button>
         </div>
 
-        <p className="text-center font-mono text-[11px] font-semibold text-white/70 uppercase tracking-wider">
-          🔒 100% Free · No sales pressure · Confidential
-        </p>
+        {/* <p className="text-center font-mono text-[11px] font-semibold text-white/70 uppercase tracking-wider">
+          🔒 Confidential · No sales pressure
+        </p> */}
       </form>
     </div>
   );

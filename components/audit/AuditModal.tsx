@@ -136,7 +136,7 @@ export function AuditModal({ open, onClose, prefillSpend }: AuditModalProps) {
                         legend="What are you trying to improve?"
                         options={['E-commerce', 'Lead Generation', 'Both']}
                         value={lead.objective}
-                        onChange={(v) => form.selectAndNext('objective', v)}
+                        onChange={(v) => form.update('objective', v)}
                       />
                     )}
 
@@ -147,7 +147,7 @@ export function AuditModal({ open, onClose, prefillSpend }: AuditModalProps) {
                         multiple
                         options={['Meta Ads', 'Google Ads', 'Both', 'Other']}
                         values={lead.channels}
-                        onToggle={(v) => form.toggleChannelAndNext(v)}
+                        onToggle={(v) => form.toggleChannel(v)}
                       />
                     )}
 
@@ -164,7 +164,7 @@ export function AuditModal({ open, onClose, prefillSpend }: AuditModalProps) {
                           '₹5,00,000+'
                         ]}
                         value={lead.spend}
-                        onChange={(v) => form.selectAndNext('spend', v)}
+                        onChange={(v) => form.update('spend', v)}
                       />
                     )}
 

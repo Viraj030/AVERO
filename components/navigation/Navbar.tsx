@@ -57,52 +57,15 @@ export function Navbar({ onOpenAudit }: NavbarProps) {
         </a>
 
         <nav aria-label="Primary" className="hidden items-center gap-8 lg:flex">
-          {links.map((link) => {
-            const isActive = activeId === link.id;
-            return (
-              <a
-                key={link.href}
-                href={link.href}
-                aria-current={isActive ? 'true' : undefined}
-                className={`avero-focus relative py-1 text-[14px] transition-colors duration-200 ease-premium ${
-                  isActive ? 'text-navy' : 'text-charcoal/70 hover:text-navy'
-                }`}
-              >
-                {link.label}
-                {isActive && (
-                  <motion.span
-                    layoutId="nav-active"
-                    className="absolute -bottom-0.5 left-0 right-0 h-[2px] bg-gold"
-                    transition={{ duration: 0.28, ease: [0.23, 1, 0.32, 1] }}
-                  />
-                )}
-              </a>
-            );
-          })}
         </nav>
 
         <div className="flex items-center gap-3">
           <Button
             onClick={handleOpenAudit}
-            className="hidden sm:inline-flex"
             aria-haspopup="dialog"
           >
-            Get My 15-Minute Audit
+            Get My 15-Mins Audit
           </Button>
-          <button
-            type="button"
-            onClick={() => setMenuOpen((v) => !v)}
-            aria-expanded={menuOpen}
-            aria-controls="mobile-nav"
-            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-            className="avero-focus inline-flex h-10 w-10 items-center justify-center rounded-[10px] border border-navy/15 text-navy lg:hidden"
-          >
-            {menuOpen ? (
-              <XIcon className="h-5 w-5" aria-hidden="true" />
-            ) : (
-              <MenuIcon className="h-5 w-5" aria-hidden="true" />
-            )}
-          </button>
         </div>
       </div>
 
@@ -112,44 +75,7 @@ export function Navbar({ onOpenAudit }: NavbarProps) {
         aria-hidden="true"
       />
 
-      <AnimatePresence>
-        {menuOpen && (
-          <motion.nav
-            id="mobile-nav"
-            aria-label="Mobile"
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.25, ease: [0.23, 1, 0.32, 1] }}
-            className="overflow-hidden border-t border-navy/10 bg-offwhite/95 backdrop-blur-md lg:hidden"
-          >
-            <ul className="mx-auto flex max-w-shell flex-col px-5 py-2 sm:px-8">
-              {links.map((link) => (
-                <li key={link.href} className="border-b border-navy/5 last:border-0">
-                  <a
-                    href={link.href}
-                    onClick={() => setMenuOpen(false)}
-                    className="avero-focus block py-3.5 text-[15px] text-charcoal"
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-              <li className="py-3 sm:hidden">
-                <Button
-                  onClick={() => {
-                    setMenuOpen(false);
-                    handleOpenAudit();
-                  }}
-                  className="w-full"
-                >
-                  Get My 15-Minute Audit
-                </Button>
-              </li>
-            </ul>
-          </motion.nav>
-        )}
-      </AnimatePresence>
+
     </header>
   );
 }
