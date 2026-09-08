@@ -44,7 +44,7 @@ export function BusinessTypeSwitcher({ onOpenAudit }: BusinessTypeSwitcherProps)
             Different businesses. Same objective.
           </h2>
           <p className="mt-4 text-[17px] text-charcoal/70">
-            Turn ad spend into profitable customers.
+            Turn ad spend into profitable growth.
           </p>
         </div>
 

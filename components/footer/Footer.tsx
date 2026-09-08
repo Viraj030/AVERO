@@ -9,7 +9,7 @@ const links = [
 
 export function Footer() {
   return (
-    <footer className="w-full border-t border-navy/10 bg-white px-5 sm:px-8">
+    <footer className="w-full border-t border-navy/10 bg-white px-5 sm:px-8 pb-[5rem] md:pb-0">
       <div className="mx-auto flex w-full max-w-shell flex-col gap-6 py-8 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-4">
           <span className="font-display text-[18px] font-bold tracking-[0.16em] text-navy">

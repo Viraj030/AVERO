@@ -14,7 +14,7 @@ export function HeroAuditForm({ id = 'audit-form', onSuccess }: HeroAuditFormPro
   const [fullName, setFullName] = useState('');
   const [phone, setPhone] = useState('');
   const [website, setWebsite] = useState('');
-  const [adSpend, setAdSpend] = useState('50,000 - 1,00,000/-');
+  const [adSpend, setAdSpend] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [phoneError, setPhoneError] = useState('');
 
@@ -45,6 +45,7 @@ export function HeroAuditForm({ id = 'audit-form', onSuccess }: HeroAuditFormPro
       name: fullName,
       website: website,
       phone: phone,
+      ...(adSpend ? { spend: adSpend } : {}),
     });
     router.push(`/thank-you?${searchParams.toString()}`);
   };
@@ -136,10 +137,15 @@ export function HeroAuditForm({ id = 'audit-form', onSuccess }: HeroAuditFormPro
           </label>
           <select
             id="hero-spend"
+            required
             value={adSpend}
             onChange={(e) => setAdSpend(e.target.value)}
-            className="mt-1.5 w-full rounded-lg border border-white/20 bg-navy-800/80 px-3.5 py-2.5 text-sm text-white focus:border-gold focus:bg-navy-900 focus:outline-none focus:ring-2 focus:ring-gold/30 transition-colors"
+            className={`mt-1.5 w-full rounded-lg border border-white/20 bg-navy-800/80 px-3.5 py-2.5 text-sm focus:border-gold focus:bg-navy-900 focus:outline-none focus:ring-2 focus:ring-gold/30 transition-colors ${
+              adSpend ? 'text-white' : 'text-white/40'
+            }`}
           >
+            <option value="" disabled className="bg-navy-900 text-white/40">Select monthly ad spend</option>
+            <option value="Not started" className="bg-navy-900 text-white">Not started</option>
             <option value="0 - 50,000" className="bg-navy-900 text-white">₹0 - ₹50,000</option>
             <option value="50,000 - 1,00,000/-" className="bg-navy-900 text-white">₹50,000 - ₹1,00,000/-</option>
             <option value="1,00,000 - 2,00,000/-" className="bg-navy-900 text-white">₹1,00,000 - ₹2,00,000/-</option>

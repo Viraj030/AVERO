@@ -8,7 +8,7 @@ import { Eyebrow } from '@/components/ui/Eyebrow';
 import { Section } from '@/components/ui/Section';
 
 export function FixAccordion() {
-  const [open, setOpen] = useState<string | null>(fixCategories[0].id);
+  const [open, setOpen] = useState<string | null>(null);
 
   return (
     <Section

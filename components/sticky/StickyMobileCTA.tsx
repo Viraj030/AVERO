@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ArrowRightIcon, SparklesIcon } from 'lucide-react';
+import { ArrowRightIcon } from 'lucide-react';
 import { useAuditModal } from '@/components/audit/AuditModalContext';
 
 interface StickyMobileCTAProps {
@@ -40,33 +40,23 @@ export function StickyMobileCTA({ onOpenAudit, hidden }: StickyMobileCTAProps) {
               type="button"
               onClick={handleOpenAudit}
               aria-haspopup="dialog"
-              className="avero-focus group relative flex h-15 w-full items-center justify-between rounded-full border-2 border-gold/60 bg-navy p-2 pr-2.5 shadow-2xl active:scale-[0.98] transition-transform duration-200"
+              className="avero-focus group relative flex h-14 w-full items-center justify-between rounded-full border-2 border-gold/60 bg-navy px-5 py-2 shadow-2xl active:scale-[0.98] transition-transform duration-200"
             >
-              <div className="flex items-center gap-3.5 pl-1.5">
-                <span className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gold text-navy-900 shadow-md">
-                  <motion.div
-                    animate={{ rotate: [0, 15, -15, 0], scale: [1, 1.2, 1] }}
-                    transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
-                  >
-                    <SparklesIcon className="h-6 w-6 fill-navy-900 text-navy-900" />
-                  </motion.div>
+              <div className="flex flex-col text-left">
+                <span className="font-display text-[15.5px] font-extrabold text-white leading-tight">
+                  Get My 15-Mins Audit
                 </span>
-                <div className="flex flex-col text-left">
-                  <span className="font-display text-[16.5px] font-extrabold text-white leading-tight">
-                    Get My 15-Mins Audit
-                  </span>
-                  <span className="font-mono text-[11px] font-bold text-gold uppercase tracking-wider">
-                    Find Ad Leaks Now →
-                  </span>
-                </div>
+                <span className="font-mono text-[11px] font-bold text-gold uppercase tracking-wider">
+                  Find Ad Leaks Now →
+                </span>
               </div>
 
-              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/20 text-gold border border-gold/30 shadow-md">
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/20 text-gold border border-gold/30 shadow-md">
                 <motion.div
                   animate={{ x: [0, 3, 0] }}
                   transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
                 >
-                  <ArrowRightIcon className="h-5 w-5 text-gold stroke-[2.5]" />
+                  <ArrowRightIcon className="h-4 w-4 text-gold stroke-[2.5]" />
                 </motion.div>
               </div>
             </button>
@@ -95,30 +85,24 @@ export function StickyMobileCTA({ onOpenAudit, hidden }: StickyMobileCTAProps) {
               type="button"
               onClick={handleOpenAudit}
               aria-haspopup="dialog"
-              className="avero-focus group relative flex items-center gap-3.5 rounded-full border border-gold/60 bg-navy p-1.5 pr-6 text-white shadow-[0_15px_35px_-5px_rgba(12,40,70,0.5)] transition-transform duration-200 ease-premium hover:-translate-y-1 hover:shadow-gold/30"
+              className="avero-focus group relative flex items-center justify-between gap-4 rounded-full border-2 border-gold/60 bg-navy py-2 pl-5 pr-2 text-white shadow-[0_15px_35px_-5px_rgba(12,40,70,0.5)] transition-transform duration-200 ease-premium hover:-translate-y-1 hover:shadow-gold/30"
             >
-              <span className="relative flex h-10 w-10 items-center justify-center rounded-full bg-gold text-navy-900 shadow-md">
-                <motion.div
-                  animate={{ rotate: [0, 20, -20, 0], scale: [1, 1.25, 1] }}
-                  transition={{ repeat: Infinity, duration: 2.2, ease: 'easeInOut' }}
-                >
-                  <SparklesIcon className="h-5 w-5 fill-navy-900 text-navy-900" />
-                </motion.div>
-              </span>
-
               <div className="flex flex-col text-left">
                 <span className="font-display text-sm font-bold text-white tracking-wide">
                   Get My 15-Mins Audit
                 </span>
-                <span className="font-mono text-[10.5px] font-bold text-gold uppercase tracking-wider flex items-center gap-1">
-                  Find Ad Leaks Now
-                  <motion.span
-                    animate={{ x: [0, 4, 0] }}
-                    transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
-                  >
-                    →
-                  </motion.span>
+                <span className="font-mono text-[10.5px] font-bold text-gold uppercase tracking-wider">
+                  Find Ad Leaks Now →
                 </span>
+              </div>
+
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/20 text-gold border border-gold/30 shadow-md">
+                <motion.div
+                  animate={{ x: [0, 3, 0] }}
+                  transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
+                >
+                  <ArrowRightIcon className="h-4 w-4 text-gold stroke-[2.5]" />
+                </motion.div>
               </div>
             </button>
           </motion.div>

@@ -1,71 +1,119 @@
+'use client';
+
 import React from 'react';
-import { Eyebrow } from '@/components/ui/Eyebrow';
+import Image from 'next/image';
+import { motion } from 'framer-motion';
 import { Section } from '@/components/ui/Section';
 
-const principles = [
+const cards = [
   {
     index: '01',
+    image: '/images/img1.png',
+    alt: 'Ads Manager connected to Website, Analytics, CRM, and Revenue',
     title: 'We look beyond Ads Manager.',
-    copy: 'Your ad account is only one part of the system.'
+    description: 'Your ad account is only one part of the system.'
   },
   {
     index: '02',
+    image: '/images/img2.png',
+    alt: 'Clicks, CTR, and Leads funneling into Rupee revenue outcome',
     title: 'We optimize for business outcomes.',
-    copy: 'Clicks, CTR and cheap leads mean nothing if they don’t turn into revenue.'
+    description: 'Clicks, CTR and cheap leads mean nothing if they don’t turn into revenue.'
   },
   {
     index: '03',
+    image: '/images/img3.png',
+    alt: 'Performance growth chart showing Proof first inflection point',
     title: 'We scale after proof.',
-    copy: 'More budget comes after efficiency — not before.'
+    description: 'More budget comes after efficiency — not before.'
   }
 ];
 
 export function WhyAvero() {
   return (
     <Section
+      id="why-avero"
       aria-labelledby="why-heading"
-      className="bg-offwhite py-20 lg:py-28"
+      className="relative bg-[#FAF9F5] py-20 lg:py-28"
     >
-      <div className="grid gap-12 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-20">
-        <div>
-          <Eyebrow>Why AVERO</Eyebrow>
+      <div className="relative mx-auto max-w-shell">
+        {/* Centered Header */}
+        <div className="flex flex-col items-center text-center">
+          {/* Eyebrow */}
+          <div className="inline-flex items-center gap-2 font-mono text-[12px] font-bold uppercase tracking-[0.2em] text-navy/75">
+            <span className="inline-block h-2 w-2 rotate-45 bg-gold" aria-hidden="true" />
+            <span>Why AVERO</span>
+          </div>
+
+          {/* Heading */}
           <h2
             id="why-heading"
-            className="mt-6 max-w-[13ch] font-display text-[32px] font-semibold leading-[1.06] tracking-[-0.025em] text-navy sm:text-[44px]"
+            className="mt-4 font-display text-[34px] font-bold leading-[1.08] tracking-[-0.03em] text-navy sm:text-[46px] lg:text-[54px]"
           >
-            Because spending more isn&rsquo;t a strategy.
+            Because spending more isn’t a strategy.
           </h2>
 
-          <div className="mt-12 border-t border-navy/12 pt-8">
-            <p className="font-display text-[24px] font-semibold tracking-[-0.02em] text-navy sm:text-[28px]">
-              More spend <span className="text-gold-deep">&ne;</span> more profit
-            </p>
-            <p className="mt-3 font-mono text-[12.5px] uppercase tracking-eyebrow text-navy/55">
-              Better system → better economics → scalable growth
-            </p>
+          {/* Golden Badge Pill */}
+          <div className="mt-5 inline-flex items-center justify-center rounded-full bg-[#FDF5E6] px-5 py-1.5 shadow-sm border border-gold/20">
+            <span className="font-display text-[16px] sm:text-[18px] font-bold text-navy">
+              More spend &ne; more profit
+            </span>
           </div>
+
+          {/* Subtitle */}
+          <p className="mt-3 text-[15px] sm:text-[16.5px] font-normal text-charcoal/75">
+            Better system &rarr; better economics &rarr; scalable growth
+          </p>
         </div>
 
-        <ol className="divide-y divide-navy/12 border-y border-navy/12">
-          {principles.map((p) => (
-            <li
-              key={p.index}
-              className="grid gap-3 py-9 sm:grid-cols-[64px_minmax(0,1fr)] sm:gap-8"
+        {/* 3 Cards Grid */}
+        <div className="mt-14 grid grid-cols-1 gap-6 md:grid-cols-3 lg:gap-8 items-stretch">
+          {cards.map((card, i) => (
+            <motion.div
+              key={card.index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: i * 0.1, ease: [0.23, 1, 0.32, 1] }}
+              className="group flex flex-col justify-between rounded-[24px] border border-navy/10 bg-white p-6 sm:p-7 shadow-[0_4px_25px_rgba(18,59,109,0.05)] transition-all duration-300 hover:-translate-y-1.5 hover:border-gold/60 hover:shadow-xl"
             >
-              <span className="font-mono text-[11px] text-gold-deep">
-                {p.index}
-              </span>
+              {/* Card Top: Number badge */}
               <div>
-                <h3 className="max-w-[24ch] font-display text-[24px] font-semibold leading-[1.2] tracking-[-0.02em] text-navy sm:text-[30px]">
-                  {p.title}
-                </h3>
-                <p className="mt-3 max-w-[46ch] text-[15.5px] leading-[1.7] text-charcoal/65">
-                  {p.copy}
+                <div className="flex items-center justify-between">
+                  <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-slate-100 font-mono text-[12.5px] font-bold text-navy">
+                    {card.index}
+                  </span>
+                </div>
+
+                {/* Card Image Illustration - Fixed Height for Uniform Alignment */}
+                <div className="relative my-3 flex h-[175px] sm:h-[195px] w-full items-center justify-center">
+                  <Image
+                    src={card.image}
+                    alt={card.alt}
+                    width={500}
+                    height={333}
+                    priority
+                    loading="eager"
+                    className="max-h-full w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                  />
+                </div>
+              </div>
+
+              {/* Card Bottom: Gold Bar, Title & Description with Aligned Baselines */}
+              <div className="flex flex-col pt-2">
+                <div className="mb-3 h-[3.5px] w-8 rounded-full bg-gold" aria-hidden="true" />
+                <div className="min-h-[56px] sm:min-h-[62px] flex items-start">
+                  <h3 className="font-display text-[20px] sm:text-[22px] font-bold leading-[1.25] tracking-[-0.015em] text-navy">
+                    {card.title}
+                  </h3>
+                </div>
+                <p className="mt-1 text-[14.5px] sm:text-[15px] leading-[1.6] text-charcoal/75">
+                  {card.description}
                 </p>
               </div>
-            </li>
+            </motion.div>
           ))}
-        </ol>
+        </div>
       </div>
     </Section>
   );
