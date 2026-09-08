@@ -124,10 +124,7 @@ export function AuditModal({ open, onClose, prefillSpend, prefillObjective }: Au
               </div>
             )}
 
-            {status === 'success' ? (
-              <SuccessPanel onDone={form.reset} email={lead.email} />
-            ) : (
-              <form onSubmit={form.submit} className="px-6 py-6">
+            <form onSubmit={form.submit} className="px-6 py-6">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={step}
@@ -258,7 +255,6 @@ export function AuditModal({ open, onClose, prefillSpend, prefillObjective }: Au
                   No long sales presentation · Just the problems and priorities
                 </p>
               </form>
-            )}
           </motion.div>
         </div>
       )}
@@ -266,37 +262,6 @@ export function AuditModal({ open, onClose, prefillSpend, prefillObjective }: Au
   );
 }
 
-function SuccessPanel({ onDone, email }: { onDone: () => void; email: string }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.28, ease: [0.23, 1, 0.32, 1] }}
-      className="px-6 py-10 text-center"
-      role="status"
-    >
-      <span
-        aria-hidden="true"
-        className="mx-auto flex h-12 w-12 items-center justify-center rounded-full border border-gold/50 bg-gold/10 text-gold"
-      >
-        <CheckIcon className="h-5 w-5 text-gold" />
-      </span>
-      <h3 className="mt-5 font-display text-[22px] font-semibold tracking-[-0.02em] text-white">
-        Your audit request is in.
-      </h3>
-      <p className="mx-auto mt-3 max-w-[38ch] text-[14.5px] leading-[1.7] text-white/75">
-        We&rsquo;ll review the account details and reply to{' '}
-        <span className="font-medium text-gold">{email}</span> with a time and
-        what we&rsquo;ll need access to.
-      </p>
-      <div className="mt-7 flex justify-center">
-        <Button variant="onDark" onClick={onDone}>
-          Close
-        </Button>
-      </div>
-    </motion.div>
-  );
-}
 
 interface FieldProps {
   id: string;

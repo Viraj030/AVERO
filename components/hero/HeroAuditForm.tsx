@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { ArrowRightIcon, CheckCircle2Icon, StarIcon } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 
@@ -27,6 +28,8 @@ export function HeroAuditForm({ id = 'audit-form', onSuccess }: HeroAuditFormPro
     }
   };
 
+  const router = useRouter();
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (phone.length !== 10) {
@@ -37,35 +40,14 @@ export function HeroAuditForm({ id = 'audit-form', onSuccess }: HeroAuditFormPro
     if (onSuccess) {
       onSuccess();
     }
+    
+    const searchParams = new URLSearchParams({
+      name: fullName,
+      website: website,
+      phone: phone,
+    });
+    router.push(`/thank-you?${searchParams.toString()}`);
   };
-
-  if (submitted) {
-    return (
-      <div
-        id={id}
-        className="avero-grid-lines relative overflow-hidden rounded-card border border-white/15 bg-navy-900 p-8 shadow-2xl sm:p-10 text-white"
-      >
-        <div className="flex flex-col items-center text-center">
-          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gold/20 text-gold">
-            <CheckCircle2Icon className="h-10 w-10 text-gold" />
-          </div>
-          <h3 className="mt-6 font-display text-2xl font-semibold text-white">
-            Audit Request Received!
-          </h3>
-          <p className="mt-3 text-sm leading-relaxed text-white/75">
-            Thank you <span className="font-semibold text-gold">{fullName}</span>. We&rsquo;ll review your ad setup for <span className="font-semibold text-gold">{website || 'your website'}</span> and reach out to <span className="font-semibold text-gold">{phone}</span> within 24 hours.
-          </p>
-          <button
-            type="button"
-            onClick={() => setSubmitted(false)}
-            className="mt-8 text-xs font-mono text-white/50 underline hover:text-gold"
-          >
-            Submit another audit request
-          </button>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div

@@ -2,6 +2,7 @@
 
 import { useCallback, useMemo, useState } from 'react';
 import type { FormEvent } from 'react';
+import { useRouter } from 'next/navigation';
 import type { AuditLead } from '@/types/avero';
 
 export type SubmitState = 'idle' | 'submitting' | 'success';
@@ -85,6 +86,8 @@ export function useAuditForm(onClose: () => void) {
     return Object.keys(nextErrors).length === 0;
   }, [lead]);
 
+  const router = useRouter();
+
   const submit = useCallback(
     async (event: FormEvent) => {
       event.preventDefault();
@@ -97,17 +100,33 @@ export function useAuditForm(onClose: () => void) {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(lead),
         });
+        const queryParams = new URLSearchParams({
+          name: lead.name,
+          email: lead.email,
+          phone: lead.phone,
+          website: lead.website
+        }).toString();
+
         if (response.ok) {
-          setStatus('success');
+          onClose();
+          router.push(`/thank-you?${queryParams}`);
         } else {
           // Fallback to local success if API route responds with error
-          setStatus('success');
+          onClose();
+          router.push(`/thank-you?${queryParams}`);
         }
       } catch (err) {
-        setStatus('success');
+        const queryParams = new URLSearchParams({
+          name: lead.name,
+          email: lead.email,
+          phone: lead.phone,
+          website: lead.website
+        }).toString();
+        onClose();
+        router.push(`/thank-you?${queryParams}`);
       }
     },
-    [validateFinal, lead]
+    [validateFinal, lead, router, onClose]
   );
 
   const resetForm = useCallback(() => {
