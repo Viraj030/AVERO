@@ -7,6 +7,8 @@ import { useScrollSpy } from '@/hooks/useScrollSpy';
 import { Button } from '@/components/ui/Button';
 import { useAuditModal } from '@/components/audit/AuditModalContext';
 
+import Image from 'next/image';
+
 const links = [
   { label: 'What We Fix', href: '#what-we-fix', id: 'what-we-fix' },
   { label: 'How It Works', href: '#process', id: 'process' },
@@ -51,10 +53,18 @@ export function Navbar({ onOpenAudit }: NavbarProps) {
       <div className="mx-auto flex h-[64px] w-full max-w-shell items-center justify-between px-5 sm:px-8">
         <a
           href="#top"
-          className="avero-focus font-display text-[19px] font-semibold tracking-[0.16em] text-navy"
+          className="avero-focus flex items-center transition-opacity duration-200 hover:opacity-85"
         >
-          AVERO
+          <Image
+            src="/images/logo.png"
+            alt="AVERO Performance Marketing"
+            width={130}
+            height={32}
+            className="h-7 w-auto object-contain"
+            priority
+          />
         </a>
+
 
         <nav aria-label="Primary" className="hidden items-center gap-8 lg:flex">
         </nav>

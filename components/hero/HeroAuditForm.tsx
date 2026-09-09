@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ArrowRightIcon, CheckCircle2Icon, StarIcon } from 'lucide-react';
+import { ArrowRightIcon, StarIcon } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 
 interface HeroAuditFormProps {
@@ -12,11 +12,13 @@ interface HeroAuditFormProps {
 
 export function HeroAuditForm({ id = 'audit-form', onSuccess }: HeroAuditFormProps) {
   const [fullName, setFullName] = useState('');
+  const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [website, setWebsite] = useState('');
   const [adSpend, setAdSpend] = useState('');
-  const [submitted, setSubmitted] = useState(false);
   const [phoneError, setPhoneError] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const digitsOnly = e.target.value.replace(/\D/g, '').slice(0, 10);
@@ -28,24 +30,59 @@ export function HeroAuditForm({ id = 'audit-form', onSuccess }: HeroAuditFormPro
     }
   };
 
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value;
+    setEmail(val);
+    if (val.length > 0 && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val.trim())) {
+      setEmailError('Enter a valid work email');
+    } else {
+      setEmailError('');
+    }
+  };
+
   const router = useRouter();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
+      setEmailError('Enter a valid work email');
+      return;
+    }
     if (phone.length !== 10) {
       setPhoneError('Contact number must be exactly 10 digits');
       return;
     }
-    setSubmitted(true);
+
+    setIsSubmitting(true);
+
+    const payload = {
+      name: fullName,
+      email: email,
+      website: website,
+      phone: phone,
+      spend: adSpend
+    };
+
+    try {
+      await fetch('/api/audit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+    } catch (err) {
+      console.error('Failed to submit audit form to API:', err);
+    }
+
     if (onSuccess) {
       onSuccess();
     }
-    
+
     const searchParams = new URLSearchParams({
       name: fullName,
+      email: email,
       website: website,
       phone: phone,
-      ...(adSpend ? { spend: adSpend } : {}),
+      ...(adSpend ? { spend: adSpend } : {})
     });
     router.push(`/thank-you?${searchParams.toString()}`);
   };
@@ -95,6 +132,28 @@ export function HeroAuditForm({ id = 'audit-form', onSuccess }: HeroAuditFormPro
         </div>
 
         <div>
+          <label htmlFor="hero-email" className="block text-xs font-medium text-white/80 uppercase tracking-wider font-mono">
+            Work Email <span className="text-gold">*</span>
+          </label>
+          <input
+            id="hero-email"
+            type="email"
+            required
+            placeholder="e.g. rahul@company.com"
+            value={email}
+            onChange={handleEmailChange}
+            className={`mt-1.5 w-full rounded-lg border px-3.5 py-2.5 text-sm text-white placeholder:text-white/40 focus:bg-navy-800 focus:outline-none focus:ring-2 transition-colors ${
+              emailError
+                ? 'border-red-400 bg-red-950/40 focus:border-red-500 focus:ring-red-400/30'
+                : 'border-white/20 bg-navy-800/80 focus:border-gold focus:ring-gold/30'
+            }`}
+          />
+          {emailError && (
+            <p className="mt-1 text-xs text-red-400">{emailError}</p>
+          )}
+        </div>
+
+        <div>
           <label htmlFor="hero-phone" className="block text-xs font-medium text-white/80 uppercase tracking-wider font-mono">
             Contact Number <span className="text-gold">*</span>
           </label>
@@ -106,10 +165,11 @@ export function HeroAuditForm({ id = 'audit-form', onSuccess }: HeroAuditFormPro
             placeholder="e.g. 9876543210"
             value={phone}
             onChange={handlePhoneChange}
-            className={`mt-1.5 w-full rounded-lg border px-3.5 py-2.5 text-sm text-white placeholder:text-white/40 focus:bg-navy-800 focus:outline-none focus:ring-2 transition-colors ${phoneError
-              ? 'border-red-400 bg-red-950/40 focus:border-red-500 focus:ring-red-400/30'
-              : 'border-white/20 bg-navy-800/80 focus:border-gold focus:ring-gold/30'
-              }`}
+            className={`mt-1.5 w-full rounded-lg border px-3.5 py-2.5 text-sm text-white placeholder:text-white/40 focus:bg-navy-800 focus:outline-none focus:ring-2 transition-colors ${
+              phoneError
+                ? 'border-red-400 bg-red-950/40 focus:border-red-500 focus:ring-red-400/30'
+                : 'border-white/20 bg-navy-800/80 focus:border-gold focus:ring-gold/30'
+            }`}
           />
           {phoneError && (
             <p className="mt-1 text-xs text-red-400">{phoneError}</p>
@@ -155,16 +215,13 @@ export function HeroAuditForm({ id = 'audit-form', onSuccess }: HeroAuditFormPro
         </div>
 
         <div className="pt-2">
-          <Button type="submit" size="lg" className="w-full justify-center">
-            Submit Form
+          <Button type="submit" size="lg" disabled={isSubmitting} className="w-full justify-center">
+            {isSubmitting ? 'Sending…' : 'Submit Form'}
             <ArrowRightIcon className="ml-1 h-4 w-4" />
           </Button>
         </div>
-
-        {/* <p className="text-center font-mono text-[11px] font-semibold text-white/70 uppercase tracking-wider">
-          🔒 Confidential · No sales pressure
-        </p> */}
       </form>
     </div>
   );
 }
+

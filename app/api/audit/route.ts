@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { validateAuditLead } from '@/lib/validations';
+import { sendAuditConfirmationEmail } from '@/lib/email';
 
 export async function POST(request: Request) {
   try {
@@ -14,8 +15,18 @@ export async function POST(request: Request) {
       );
     }
 
-    // Here lead details can be safely dispatched to CRM, Slack, Webhook, Email API
-    // Secret keys stay safe on the server environment.
+    // Send confirmation email to the user with company logo & audit summary
+    if (email) {
+      await sendAuditConfirmationEmail({
+        name,
+        email,
+        website,
+        phone,
+        spend,
+        objective,
+        channels
+      });
+    }
 
     return NextResponse.json({
       success: true,
@@ -23,9 +34,11 @@ export async function POST(request: Request) {
       lead: { name, email, website, phone, spend, objective, channels }
     });
   } catch (error) {
+    console.error('[API /api/audit error]:', error);
     return NextResponse.json(
       { success: false, message: 'Internal Server Error' },
       { status: 500 }
     );
   }
 }
+
