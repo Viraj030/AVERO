@@ -109,40 +109,47 @@ export function useAuditForm(onClose: () => void) {
       if (!validateFinal()) return;
       setStatus('submitting');
 
+      const GOOGLE_SCRIPT_URL =
+        process.env.NEXT_PUBLIC_GOOGLE_SHEETS_SCRIPT_URL ||
+        'https://script.google.com/macros/s/AKfycbzPYxeL-eiA9S5Jpv0Q4Y40wkFbEA9mBBwk5NZI0UmIHO3hb-xxxVvv2J1eVHAvX0owzg/exec';
+
+      const payload = {
+        formType: 'Popup Form',
+        ...lead
+      };
+
       try {
         const response = await fetch('/api/audit', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            formType: 'Popup Form',
-            ...lead
-          }),
+          body: JSON.stringify(payload),
         });
-        const queryParams = new URLSearchParams({
-          name: lead.name,
-          email: lead.email,
-          phone: lead.phone,
-          website: lead.website
-        }).toString();
 
-        if (response.ok) {
-          onClose();
-          router.push(`/thank-you?${queryParams}`);
-        } else {
-          // Fallback to local success if API route responds with error
-          onClose();
-          router.push(`/thank-you?${queryParams}`);
+        if (!response.ok) {
+          throw new Error('API route unavailable');
         }
       } catch (err) {
-        const queryParams = new URLSearchParams({
-          name: lead.name,
-          email: lead.email,
-          phone: lead.phone,
-          website: lead.website
-        }).toString();
-        onClose();
-        router.push(`/thank-you?${queryParams}`);
+        console.warn('Backend API route unavailable, logging directly to Google Sheets...');
+        await fetch(GOOGLE_SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain' },
+          body: JSON.stringify({
+            submittedAt: new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }),
+            ...payload
+          })
+        }).catch((e) => console.error('Fallback sheet error:', e));
       }
+
+      const queryParams = new URLSearchParams({
+        name: lead.name,
+        email: lead.email,
+        phone: lead.phone,
+        website: lead.website
+      }).toString();
+
+      onClose();
+      router.push(`/thank-you?${queryParams}`);
     },
     [step, canAdvance, validateFinal, lead, router, onClose]
   );

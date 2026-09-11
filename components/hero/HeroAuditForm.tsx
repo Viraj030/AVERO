@@ -64,14 +64,30 @@ export function HeroAuditForm({ id = 'audit-form', onSuccess }: HeroAuditFormPro
       spend: adSpend
     };
 
+    const GOOGLE_SCRIPT_URL =
+      process.env.NEXT_PUBLIC_GOOGLE_SHEETS_SCRIPT_URL ||
+      'https://script.google.com/macros/s/AKfycbzPYxeL-eiA9S5Jpv0Q4Y40wkFbEA9mBBwk5NZI0UmIHO3hb-xxxVvv2J1eVHAvX0owzg/exec';
+
     try {
-      await fetch('/api/audit', {
+      const res = await fetch('/api/audit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       });
+      if (!res.ok) {
+        throw new Error('API route unavailable');
+      }
     } catch (err) {
-      console.error('Failed to submit audit form to API:', err);
+      console.warn('Backend API route unavailable, logging directly to Google Sheets...');
+      await fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify({
+          submittedAt: new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }),
+          ...payload
+        })
+      }).catch((e) => console.error('Fallback sheet error:', e));
     }
 
     if (onSuccess) {
