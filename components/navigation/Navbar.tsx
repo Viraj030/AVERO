@@ -50,7 +50,7 @@ export function Navbar({ onOpenAudit }: NavbarProps) {
           : 'border-b border-transparent bg-transparent'
       }`}
     >
-      <div className="mx-auto flex h-[64px] w-full max-w-shell items-center justify-between px-5 sm:px-8">
+      <div className="mx-auto flex h-[64px] w-full max-w-shell items-center justify-between px-4 sm:px-8">
         <a
           href="#top"
           className="avero-focus flex items-center transition-opacity duration-200 hover:opacity-85"

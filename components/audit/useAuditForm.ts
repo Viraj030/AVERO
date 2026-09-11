@@ -67,10 +67,14 @@ export function useAuditForm(onClose: () => void) {
 
   const next = useCallback(() => {
     if (!canAdvance) return;
+    setErrors({});
     setStep((s) => Math.min(s + 1, TOTAL_STEPS - 1));
   }, [canAdvance]);
 
-  const back = useCallback(() => setStep((s) => Math.max(s - 1, 0)), []);
+  const back = useCallback(() => {
+    setErrors({});
+    setStep((s) => Math.max(s - 1, 0));
+  }, []);
 
   const validateFinal = useCallback(() => {
     const nextErrors: Record<string, string> = {};
@@ -91,6 +95,17 @@ export function useAuditForm(onClose: () => void) {
   const submit = useCallback(
     async (event: FormEvent) => {
       event.preventDefault();
+
+      // If user is on an earlier step (e.g. step 0, 1, or 2), just advance step!
+      if (step < TOTAL_STEPS - 1) {
+        if (canAdvance) {
+          setErrors({});
+          setStep((s) => Math.min(s + 1, TOTAL_STEPS - 1));
+        }
+        return;
+      }
+
+      // Only run final validation on the last step (step 3) when user submits
       if (!validateFinal()) return;
       setStatus('submitting');
 
@@ -98,7 +113,10 @@ export function useAuditForm(onClose: () => void) {
         const response = await fetch('/api/audit', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(lead),
+          body: JSON.stringify({
+            formType: 'Popup Form',
+            ...lead
+          }),
         });
         const queryParams = new URLSearchParams({
           name: lead.name,
@@ -126,7 +144,7 @@ export function useAuditForm(onClose: () => void) {
         router.push(`/thank-you?${queryParams}`);
       }
     },
-    [validateFinal, lead, router, onClose]
+    [step, canAdvance, validateFinal, lead, router, onClose]
   );
 
   const resetForm = useCallback(() => {

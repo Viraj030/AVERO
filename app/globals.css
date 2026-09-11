@@ -7,6 +7,30 @@ html {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Thin Brand Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0c2846;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d4af37;
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #e5c766;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #d4af37 #0c2846;
+}
+
 body {
   background-color: #ffffff;
   color: #1f2933;
@@ -29,23 +53,11 @@ body {
 }
 
 .avero-grid-lines {
-  background-image: linear-gradient(
-      to right,
-      rgba(255, 255, 255, 0.05) 1px,
-      transparent 1px
-    ),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-  background-size: 48px 48px;
+  background-image: none;
 }
 
 .avero-grid-lines-light {
-  background-image: linear-gradient(
-      to right,
-      rgba(18, 59, 109, 0.06) 1px,
-      transparent 1px
-    ),
-    linear-gradient(to bottom, rgba(18, 59, 109, 0.06) 1px, transparent 1px);
-  background-size: 48px 48px;
+  background-image: none;
 }
 
 /* Range inputs used by the leak calculator */

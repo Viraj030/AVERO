@@ -99,15 +99,13 @@ export function WhyAvero() {
                 </div>
               </div>
 
-              {/* Card Bottom: Gold Bar, Title & Description with Aligned Baselines */}
-              <div className="flex flex-col pt-2">
-                <div className="mb-3 h-[3.5px] w-8 rounded-full bg-gold" aria-hidden="true" />
-                <div className="min-h-[56px] sm:min-h-[62px] flex items-start">
-                  <h3 className="font-display text-[20px] sm:text-[22px] font-bold leading-[1.25] tracking-[-0.015em] text-navy">
-                    {card.title}
-                  </h3>
-                </div>
-                <p className="mt-1 text-[14.5px] sm:text-[15px] leading-[1.6] text-charcoal/75">
+              {/* Card Bottom: Gold Bar, Title & Description */}
+              <div className="flex flex-col pt-3">
+                <div className="mb-3 h-[3.5px] w-8 shrink-0 rounded-full bg-gold" aria-hidden="true" />
+                <h3 className="font-display text-[19px] sm:text-[21px] font-bold leading-[1.25] tracking-[-0.015em] text-navy">
+                  {card.title}
+                </h3>
+                <p className="mt-2.5 text-[14px] sm:text-[14.5px] leading-[1.55] text-charcoal/75">
                   {card.description}
                 </p>
               </div>

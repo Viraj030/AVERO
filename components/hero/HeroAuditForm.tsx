@@ -56,6 +56,7 @@ export function HeroAuditForm({ id = 'audit-form', onSuccess }: HeroAuditFormPro
     setIsSubmitting(true);
 
     const payload = {
+      formType: 'Hero Form',
       name: fullName,
       email: email,
       website: website,
@@ -93,12 +94,12 @@ export function HeroAuditForm({ id = 'audit-form', onSuccess }: HeroAuditFormPro
       className="avero-grid-lines relative overflow-hidden rounded-card border border-white/15 bg-navy-900 p-6 shadow-2xl sm:p-8 text-white"
     >
       <div className="border-b border-white/10 pb-5">
-        <div className="flex items-center justify-between">
-          <div className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/10 px-3 py-1 font-mono text-[11px] font-semibold uppercase tracking-wider text-gold">
+        <div className="flex flex-col gap-2.5 sm:flex-row sm:items-center sm:justify-between">
+          <div className="inline-flex items-center gap-2 whitespace-nowrap rounded-full border border-gold/40 bg-gold/10 px-3 py-1 font-mono text-[11px] font-semibold uppercase tracking-wider text-gold">
             <span className="h-2 w-2 rounded-full bg-gold animate-pulse" />
             Account Diagnostic
           </div>
-          <div className="flex items-center gap-1 text-amber-400 text-xs font-semibold bg-white/10 px-2.5 py-1 rounded-full border border-white/15">
+          <div className="inline-flex w-fit items-center gap-1.5 text-amber-400 text-xs font-semibold bg-white/10 px-2.5 py-1 rounded-full border border-white/15">
             <div className="flex text-amber-400 gap-0.5">
               {[...Array(5)].map((_, i) => (
                 <StarIcon key={i} className="h-3 w-3 fill-amber-400 text-amber-400" />

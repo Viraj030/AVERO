@@ -160,6 +160,7 @@ export function AuditModal({ open, onClose, prefillSpend, prefillObjective }: Au
                         legend="Approximate monthly ad spend?"
                         columns={2}
                         options={[
+                          'Not started',
                           '₹0 - ₹50,000',
                           '₹50,000 - ₹1,00,000/-',
                           '₹1,00,000 - ₹2,00,000/-',

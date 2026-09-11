@@ -72,7 +72,7 @@ export function Footer() {
             </span>
           </a>
 
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-2">
             {socialLinks.map((social) => (
               <a
                 key={social.name}
@@ -80,7 +80,7 @@ export function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={social.name}
-                className="avero-focus flex h-8 w-8 items-center justify-center rounded-full border border-navy/15 bg-white text-navy/70 transition-all duration-200 hover:border-navy/40 hover:bg-navy/5 hover:text-navy hover:scale-105"
+                className="avero-focus flex h-9 w-9 items-center justify-center rounded-full border border-navy/30 bg-navy/5 text-navy transition-all duration-200 hover:border-gold hover:bg-navy hover:text-gold hover:scale-110 shadow-sm"
               >
                 {social.icon}
               </a>

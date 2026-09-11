@@ -1,4 +1,5 @@
 import React from 'react';
+import { StarIcon } from 'lucide-react';
 import { HeroAuditForm } from './HeroAuditForm';
 import { HeroCtaButtons } from './HeroCtaButtons';
 
@@ -28,6 +29,21 @@ export function Hero({ onOpenAudit }: HeroProps) {
           </p>
 
           <HeroCtaButtons onOpenAudit={onOpenAudit} />
+
+          {/* Rating Badge from Image 1 */}
+          <div className="mt-8 inline-flex items-center gap-3.5 rounded-[12px] border border-navy/12 bg-[#FAF7EE] px-4 py-2.5 shadow-sm">
+            <div className="flex items-center gap-0.5 text-gold">
+              <StarIcon className="h-4 w-4 fill-gold text-gold" aria-hidden="true" />
+              <StarIcon className="h-4 w-4 fill-gold text-gold" aria-hidden="true" />
+              <StarIcon className="h-4 w-4 fill-gold text-gold" aria-hidden="true" />
+              <StarIcon className="h-4 w-4 fill-gold text-gold" aria-hidden="true" />
+              <StarIcon className="h-4 w-4 fill-gold text-gold" aria-hidden="true" />
+            </div>
+            <div className="text-[13px] leading-[1.35] text-navy/90">
+              <span>Rated 4.9/5 by 60+ Meta &amp; Google</span>
+              <span className="block font-semibold text-navy">advertisers</span>
+            </div>
+          </div>
         </div>
 
         <div>
