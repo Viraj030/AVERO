@@ -36,7 +36,7 @@ export function Footer() {
   return (
     <footer className="w-full border-t border-navy/10 bg-white px-5 sm:px-8 pb-[5rem] md:pb-6">
       <div className="mx-auto flex w-full max-w-shell flex-col gap-6 py-8 md:flex-row md:items-center md:justify-between">
-        {/* Brand & Tagline */}
+        {/* Brand */}
         <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
           <Image
             src="/images/logo.png"
@@ -45,10 +45,6 @@ export function Footer() {
             height={28}
             className="h-6 w-auto object-contain"
           />
-          <span className="hidden sm:inline text-navy/30">|</span>
-          <span className="font-mono text-[11px] uppercase tracking-eyebrow text-navy/75 font-medium">
-            Find the leak · Fix the problem · Scale what works
-          </span>
         </div>
 
         {/* WhatsApp & Social Media Links */}

@@ -12,12 +12,6 @@ interface FinalCTAProps {
   variant?: 'leak' | 'budget';
 }
 
-const auditHighlights = [
-  'Direct Funnel & Tracking Teardown',
-  'Prioritized Leaks & Fix Roadmap',
-  '100% Free · Zero Sales Pressure'
-];
-
 export function FinalCTA({ onOpenAudit, variant = 'leak' }: FinalCTAProps) {
   const modal = useAuditModal();
   const handleOpenAudit = onOpenAudit || modal.openAudit;
@@ -25,8 +19,9 @@ export function FinalCTA({ onOpenAudit, variant = 'leak' }: FinalCTAProps) {
   return (
     <Section
       id="next-step"
+
       aria-labelledby="final-cta-heading"
-      className="relative overflow-hidden bg-navy-900 py-24 text-white lg:py-32"
+      className="relative overflow-hidden bg-navy-900 py-18 text-white lg:py-24"
     >
       <div
         className="avero-grid-lines pointer-events-none absolute inset-0 [mask-image:radial-gradient(70%_70%_at_50%_50%,black,transparent)]"
@@ -59,19 +54,6 @@ export function FinalCTA({ onOpenAudit, variant = 'leak' }: FinalCTAProps) {
           Give us 15 minutes. We&rsquo;ll analyze your paid traffic, identify the exact leaks draining your ad budget, and hand you a clear, prioritized fix plan.
         </p>
 
-        {/* Highlight Pills */}
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
-          {auditHighlights.map((highlight) => (
-            <div
-              key={highlight}
-              className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs sm:text-sm font-medium text-white/90 backdrop-blur-sm"
-            >
-              <CheckCircle2Icon className="h-4 w-4 text-gold shrink-0" aria-hidden="true" />
-              <span>{highlight}</span>
-            </div>
-          ))}
-        </div>
-
         {/* Action Buttons */}
         <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
           <Button size="lg" onClick={handleOpenAudit} aria-haspopup="dialog" className="w-full sm:w-auto px-8">
@@ -98,10 +80,6 @@ export function FinalCTA({ onOpenAudit, variant = 'leak' }: FinalCTAProps) {
             <span>Chat on WhatsApp</span>
           </a>
         </div>
-
-        <p className="mt-8 font-mono text-[11px] uppercase tracking-eyebrow text-white/40">
-          Find the leak · Fix the problem · Scale what works
-        </p>
       </div>
     </Section>
   );

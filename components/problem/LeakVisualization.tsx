@@ -2,11 +2,15 @@
 
 import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
+import { ArrowRightIcon } from 'lucide-react';
 import { funnelStages } from '@/data/funnel';
 import { Eyebrow } from '@/components/ui/Eyebrow';
 import { Section } from '@/components/ui/Section';
+import { Button } from '@/components/ui/Button';
+import { useAuditModal } from '@/components/audit/AuditModalContext';
 
 export function LeakVisualization() {
+  const modal = useAuditModal();
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: '-15%' });
 
@@ -14,7 +18,7 @@ export function LeakVisualization() {
     <Section
       id="leak"
       aria-labelledby="leak-heading"
-      className="bg-white py-20 lg:py-28"
+      className="bg-white py-16 lg:py-22"
     >
       <div className="grid gap-12 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)] lg:gap-20">
         <div className="lg:sticky lg:top-28 lg:self-start">
@@ -112,6 +116,19 @@ export function LeakVisualization() {
           <p className="mt-6 font-mono text-[11px] font-semibold uppercase tracking-eyebrow text-navy/70">
             Illustrative funnel · loss rates vary by account
           </p>
+
+          {/* Mobile CTA opening audit popup form */}
+          <div className="mt-8 sm:hidden flex justify-center">
+            <Button
+              size="lg"
+              onClick={modal.openAudit}
+              aria-haspopup="dialog"
+              className="w-full justify-center"
+            >
+              Get My 15-Mins Audit
+              <ArrowRightIcon className="ml-1.5 h-4 w-4" aria-hidden="true" />
+            </Button>
+          </div>
         </div>
       </div>
     </Section>

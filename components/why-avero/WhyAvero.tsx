@@ -34,7 +34,7 @@ export function WhyAvero() {
     <Section
       id="why-avero"
       aria-labelledby="why-heading"
-      className="relative bg-[#FAF9F5] py-20 lg:py-28"
+      className="relative bg-[#FAF9F5] py-16 lg:py-22"
     >
       <div className="relative mx-auto max-w-shell">
         {/* Centered Header */}
@@ -92,8 +92,8 @@ export function WhyAvero() {
                     alt={card.alt}
                     width={500}
                     height={333}
-                    priority
-                    loading="eager"
+                    loading="lazy"
+                    sizes="(max-width: 768px) 100vw, 33vw"
                     className="max-h-full w-auto object-contain transition-transform duration-300 group-hover:scale-105"
                   />
                 </div>

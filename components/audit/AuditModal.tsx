@@ -124,7 +124,7 @@ export function AuditModal({ open, onClose, prefillSpend, prefillObjective }: Au
               </div>
             )}
 
-            <form onSubmit={form.submit} className="px-6 py-6">
+            <div className="px-6 py-6">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={step}
@@ -173,51 +173,55 @@ export function AuditModal({ open, onClose, prefillSpend, prefillObjective }: Au
                     )}
 
                     {step === 3 && (
-                      <fieldset className="space-y-3.5">
-                        <legend className="sr-only">Your details</legend>
-                        <Field
-                          id="lead-name"
-                          label="Name"
-                          value={lead.name}
-                          error={errors.name}
-                          onChange={(v) => form.update('name', v)}
-                          autoComplete="name"
-                        />
+                      <form id="audit-step-form" onSubmit={form.submit}>
+                        <fieldset className="space-y-3.5">
+                          <legend className="sr-only">Your details</legend>
+                          <Field
+                            id="lead-name"
+                            label="Name"
+                            value={lead.name}
+                            error={errors.name}
+                            onChange={(v) => form.update('name', v)}
+                            placeholder="e.g. Rahul Sharma"
+                            autoComplete="name"
+                          />
 
-                        <Field
-                          id="lead-email"
-                          label="Work email"
-                          type="email"
-                          value={lead.email}
-                          error={errors.email}
-                          onChange={(v) => form.update('email', v)}
-                          autoComplete="email"
-                        />
+                          <Field
+                            id="lead-email"
+                            label="Work email"
+                            type="email"
+                            value={lead.email}
+                            error={errors.email}
+                            onChange={(v) => form.update('email', v)}
+                            placeholder="e.g. rahul@company.com"
+                            autoComplete="email"
+                          />
 
-                        <Field
-                          id="lead-website"
-                          label="Website"
-                          value={lead.website}
-                          error={errors.website}
-                          onChange={(v) => form.update('website', v)}
-                          placeholder="yourbrand.com"
-                          autoComplete="url"
-                        />
+                          <Field
+                            id="lead-website"
+                            label="Website"
+                            value={lead.website}
+                            error={errors.website}
+                            onChange={(v) => form.update('website', v)}
+                            placeholder="yourbrand.com"
+                            autoComplete="url"
+                          />
 
-                        <Field
-                          id="lead-phone"
-                          label="Contact Number"
-                          type="tel"
-                          maxLength={10}
-                          value={lead.phone}
-                          error={errors.phone}
-                          onChange={(v) =>
-                            form.update('phone', v.replace(/\D/g, '').slice(0, 10))
-                          }
-                          placeholder="e.g. 9876543210"
-                          autoComplete="tel"
-                        />
-                      </fieldset>
+                          <Field
+                            id="lead-phone"
+                            label="Contact Number"
+                            type="tel"
+                            maxLength={10}
+                            value={lead.phone}
+                            error={errors.phone}
+                            onChange={(v) =>
+                              form.update('phone', v.replace(/\D/g, '').slice(0, 10))
+                            }
+                            placeholder="e.g. 9876543210"
+                            autoComplete="tel"
+                          />
+                        </fieldset>
+                      </form>
                     )}
                   </motion.div>
                 </AnimatePresence>
@@ -246,7 +250,7 @@ export function AuditModal({ open, onClose, prefillSpend, prefillObjective }: Au
                       />
                     </Button>
                   ) : (
-                    <Button type="submit" disabled={status === 'submitting'}>
+                    <Button type="submit" form="audit-step-form" disabled={status === 'submitting'}>
                       {status === 'submitting' ? 'Sending…' : 'Request My Audit'}
                     </Button>
                   )}
@@ -255,7 +259,7 @@ export function AuditModal({ open, onClose, prefillSpend, prefillObjective }: Au
                 <p className="mt-5 border-t border-white/10 pt-4 font-mono text-[11px] font-semibold uppercase leading-[1.7] tracking-eyebrow text-white/70">
                   No long sales presentation · Just the problems and priorities
                 </p>
-              </form>
+              </div>
           </motion.div>
         </div>
       )}

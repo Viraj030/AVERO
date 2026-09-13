@@ -15,23 +15,23 @@ export const businessPanels: Record<BusinessType, BusinessPanel> = {
   ecommerce: {
     id: 'ecommerce',
     label: 'E-commerce',
-    headline: 'Profit per order, not orders at any price.',
-    copy: 'We work backwards from contribution margin — what the store keeps after product cost, shipping and ad spend — then find which part of the funnel is eroding it.',
+    headline: 'More profitable purchases, not just more orders.',
+    copy: 'We build and scale e-commerce campaigns around what actually drives profitable growth. From audience targeting and retargeting to creative testing and purchase optimization.',
     cta: 'Scale My Store',
     metrics: [
-      { label: 'ROAS', value: '2.31x', caption: 'Platform reported' },
-      { label: 'MER', value: '1.94x', caption: 'Blended, all channels' },
-      { label: 'CAC', value: '₹1,250', caption: 'New customer' },
-      { label: 'AOV', value: '₹2,490', caption: 'Trailing 30 days' }
+      { label: 'PURCHASE ROAS', value: '16.24x', caption: 'Average across campaigns' },
+      { label: 'PURCHASES', value: '3,218', caption: 'Total purchases' },
+      { label: 'AD SPEND', value: '₹6.37L', caption: 'Total spend' },
+      { label: 'AVG. PURCHASE VALUE', value: '₹3,213', caption: 'Average purchase value' }
     ],
 
     focus: [
-      'Product economics',
-      'Creative fatigue',
-      'Funnel leakage',
-      'Retargeting',
-      'Checkout performance',
-      'Conversion rate'
+      'PURCHASE OPTIMIZATION',
+      'RETARGETING',
+      'CREATIVE TESTING',
+      'AUDIENCE TARGETING',
+      'CBO',
+      'ADVANTAGE+ PLACEMENTS'
     ],
 
     bars: [
@@ -43,23 +43,23 @@ export const businessPanels: Record<BusinessType, BusinessPanel> = {
   leadgen: {
     id: 'leadgen',
     label: 'Lead Generation',
-    headline: 'Qualified pipeline, not cheap form fills.',
-    copy: 'Cost per lead is the easiest number to improve and the easiest to fool yourself with. We optimise against what the sales team can actually close.',
-    cta: 'Improve My Lead Flow',
+    headline: 'Qualified leads, not just cheap form fills.',
+    copy: 'We build full-funnel lead generation campaigns that combine audience testing, creative iteration and retargeting to attract the right prospects and improve acquisition efficiency.',
+    cta: 'Generate Better Leads',
     metrics: [
-      { label: 'CPL', value: '₹450', caption: 'All sources' },
-      { label: 'Qualified rate', value: '48%', caption: 'CRM verified' },
-      { label: 'CPA', value: '₹3,500', caption: 'Per closed deal' },
-      { label: 'Lead → sale', value: '11.4%', caption: 'Trailing quarter' }
+      { label: 'COST PER LEAD', value: '$31', caption: 'Average CPL' },
+      { label: 'LEADS GENERATED', value: '90+', caption: 'Total leads' },
+      { label: 'WEBSITE CLICKS', value: '1,809', caption: 'Total clicks' },
+      { label: 'AD SPEND', value: '$2,825', caption: 'Total spend' }
     ],
 
     focus: [
-      'Search intent',
-      'Landing page CVR',
-      'Lead quality',
-      'CRM feedback',
-      'Sales conversion',
-      'Form qualification'
+      'FULL-FUNNEL META ADS',
+      'AUDIENCE TESTING',
+      'CREATIVE ITERATION',
+      'RETARGETING',
+      'LEAD GENERATION',
+      'CAMPAIGN SCALING'
     ],
 
     bars: [

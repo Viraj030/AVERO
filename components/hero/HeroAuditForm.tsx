@@ -68,18 +68,14 @@ export function HeroAuditForm({ id = 'audit-form', onSuccess }: HeroAuditFormPro
       process.env.NEXT_PUBLIC_GOOGLE_SHEETS_SCRIPT_URL ||
       'https://script.google.com/macros/s/AKfycbzPYxeL-eiA9S5Jpv0Q4Y40wkFbEA9mBBwk5NZI0UmIHO3hb-xxxVvv2J1eVHAvX0owzg/exec';
 
-    try {
-      const res = await fetch('/api/audit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-      if (!res.ok) {
-        throw new Error('API route unavailable');
-      }
-    } catch (err) {
-      console.warn('Backend API route unavailable, logging directly to Google Sheets...');
-      await fetch(GOOGLE_SCRIPT_URL, {
+    // Fire background logging and redirect instantly
+    fetch('/api/audit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    }).catch((err) => {
+      console.warn('Backend API route error, logging directly to Google Sheets...', err);
+      fetch(GOOGLE_SCRIPT_URL, {
         method: 'POST',
         mode: 'no-cors',
         headers: { 'Content-Type': 'text/plain' },
@@ -88,20 +84,13 @@ export function HeroAuditForm({ id = 'audit-form', onSuccess }: HeroAuditFormPro
           ...payload
         })
       }).catch((e) => console.error('Fallback sheet error:', e));
-    }
+    });
 
     if (onSuccess) {
       onSuccess();
     }
 
-    const searchParams = new URLSearchParams({
-      name: fullName,
-      email: email,
-      website: website,
-      phone: phone,
-      ...(adSpend ? { spend: adSpend } : {})
-    });
-    router.push(`/thank-you?${searchParams.toString()}`);
+    router.push('/thank-you');
   };
 
   return (
@@ -110,7 +99,7 @@ export function HeroAuditForm({ id = 'audit-form', onSuccess }: HeroAuditFormPro
       className="avero-grid-lines relative overflow-hidden rounded-card border border-white/15 bg-navy-900 p-6 shadow-2xl sm:p-8 text-white"
     >
       <div className="border-b border-white/10 pb-5">
-        <div className="flex flex-col gap-2.5 sm:flex-row sm:items-center sm:justify-between">
+        <div className="hidden sm:flex flex-col gap-2.5 sm:flex-row sm:items-center sm:justify-between">
           <div className="inline-flex items-center gap-2 whitespace-nowrap rounded-full border border-gold/40 bg-gold/10 px-3 py-1 font-mono text-[11px] font-semibold uppercase tracking-wider text-gold">
             <span className="h-2 w-2 rounded-full bg-gold animate-pulse" />
             Account Diagnostic

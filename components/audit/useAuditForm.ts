@@ -24,6 +24,7 @@ export function useAuditForm(onClose: () => void) {
   const [lead, setLead] = useState<AuditLead>(emptyLead);
   const [status, setStatus] = useState<SubmitState>('idle');
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [hasAttemptedSubmit, setHasAttemptedSubmit] = useState(false);
 
   const update = useCallback(<K extends keyof AuditLead>(key: K, value: AuditLead[K]) => {
     setLead((prev) => ({ ...prev, [key]: value }));
@@ -42,6 +43,8 @@ export function useAuditForm(onClose: () => void) {
       if (objectiveValue && !prev.objective) next = { ...next, objective: objectiveValue };
       return next;
     });
+    setErrors({});
+    setHasAttemptedSubmit(false);
     if (objectiveValue) {
       setStep(1);
     } else {
@@ -68,11 +71,13 @@ export function useAuditForm(onClose: () => void) {
   const next = useCallback(() => {
     if (!canAdvance) return;
     setErrors({});
+    setHasAttemptedSubmit(false);
     setStep((s) => Math.min(s + 1, TOTAL_STEPS - 1));
   }, [canAdvance]);
 
   const back = useCallback(() => {
     setErrors({});
+    setHasAttemptedSubmit(false);
     setStep((s) => Math.max(s - 1, 0));
   }, []);
 
@@ -96,17 +101,18 @@ export function useAuditForm(onClose: () => void) {
     async (event: FormEvent) => {
       event.preventDefault();
 
-      // If user is on an earlier step (e.g. step 0, 1, or 2), just advance step!
       if (step < TOTAL_STEPS - 1) {
         if (canAdvance) {
           setErrors({});
+          setHasAttemptedSubmit(false);
           setStep((s) => Math.min(s + 1, TOTAL_STEPS - 1));
         }
         return;
       }
 
-      // Only run final validation on the last step (step 3) when user submits
-      if (!validateFinal()) return;
+      setHasAttemptedSubmit(true);
+      const isValid = validateFinal();
+      if (!isValid) return;
       setStatus('submitting');
 
       const GOOGLE_SCRIPT_URL =
@@ -115,22 +121,18 @@ export function useAuditForm(onClose: () => void) {
 
       const payload = {
         formType: 'Popup Form',
-        ...lead
+        ...lead,
+        channels: Array.isArray(lead.channels) ? lead.channels.join(', ') : lead.channels || 'N/A'
       };
 
-      try {
-        const response = await fetch('/api/audit', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-        });
-
-        if (!response.ok) {
-          throw new Error('API route unavailable');
-        }
-      } catch (err) {
-        console.warn('Backend API route unavailable, logging directly to Google Sheets...');
-        await fetch(GOOGLE_SCRIPT_URL, {
+      // Fire API request in background and immediately navigate to thank-you
+      fetch('/api/audit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      }).catch((err) => {
+        console.warn('Backend API route error, logging directly to Google Sheets...', err);
+        fetch(GOOGLE_SCRIPT_URL, {
           method: 'POST',
           mode: 'no-cors',
           headers: { 'Content-Type': 'text/plain' },
@@ -139,17 +141,10 @@ export function useAuditForm(onClose: () => void) {
             ...payload
           })
         }).catch((e) => console.error('Fallback sheet error:', e));
-      }
-
-      const queryParams = new URLSearchParams({
-        name: lead.name,
-        email: lead.email,
-        phone: lead.phone,
-        website: lead.website
-      }).toString();
+      });
 
       onClose();
-      router.push(`/thank-you?${queryParams}`);
+      router.push('/thank-you');
     },
     [step, canAdvance, validateFinal, lead, router, onClose]
   );
@@ -159,6 +154,7 @@ export function useAuditForm(onClose: () => void) {
     setLead(emptyLead);
     setStatus('idle');
     setErrors({});
+    setHasAttemptedSubmit(false);
   }, []);
 
   const reset = useCallback(() => {

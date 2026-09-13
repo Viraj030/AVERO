@@ -11,8 +11,8 @@ export function Eyebrow({ children, tone = 'light', className }: EyebrowProps) {
   return (
     <p
       className={classNames(
-        'flex items-center gap-3 font-mono text-[11px] uppercase tracking-eyebrow',
-        tone === 'light' ? 'text-navy/55' : 'text-white/50',
+        'flex items-center gap-3 font-mono text-[0.85rem] lg:text-[15px] font-bold uppercase tracking-eyebrow',
+        tone === 'light' ? 'text-navy/75' : 'text-white/80',
         className
       )}
     >

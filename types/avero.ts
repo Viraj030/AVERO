@@ -27,14 +27,18 @@ export interface ProcessStep {
 export interface CaseStudy {
   id: string;
   client: string;
+  logoSrc: string;
   sector: string;
+  channelTag: string;
+  typeTag: string;
+  headline: string;
+  description: string;
   challenge: string;
   changed: string;
   result: string;
-  before: { label: string; value: string }[];
-  after: { label: string; value: string }[];
-  change: string[];
-  series: { before: number[]; after: number[] };
+  metrics: { label: string; value: string }[];
+  dateRange: string;
+  dashboardImage: string;
 }
 
 export interface FaqItem {

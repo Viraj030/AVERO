@@ -8,18 +8,6 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/Button';
 
 function ThankYouContent() {
-  const searchParams = useSearchParams();
-  const name = searchParams.get('name') || 'there';
-  const email = searchParams.get('email');
-  const phone = searchParams.get('phone');
-  const website = searchParams.get('website') || 'your website';
-  
-  let contactText = '';
-  if (email && phone) contactText = `${email} / ${phone}`;
-  else if (phone) contactText = phone;
-  else if (email) contactText = email;
-  else contactText = 'you';
-
   return (
     <div className="avero-grid-lines flex min-h-screen flex-col items-center justify-center bg-navy-900 px-6 py-20 text-center relative overflow-hidden">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[400px] w-[400px] rounded-full bg-gold/10 blur-[120px] pointer-events-none" />
@@ -50,9 +38,9 @@ function ThankYouContent() {
         
         <div className="mt-4 h-px w-16 bg-gold/50 mx-auto" />
         
-        <p className="mx-auto mt-6 max-w-lg text-[16px] sm:text-[18px] leading-[1.65] text-white/85">
-          Thank you, <span className="font-semibold text-gold">{name}</span>. 
-          We will review your ad setup for <span className="font-semibold text-white">{website}</span> and reach out to <span className="font-semibold text-gold">{contactText}</span> within 24 hours.
+        <p className="mx-auto mt-6 max-w-xl text-[16px] sm:text-[18px] leading-[1.65] text-white/85">
+          Thank you! We have received your audit request.<br className="hidden sm:inline" />
+          {' '}Our team will review your ad setup and reach out to you within 24 hours.
         </p>
 
         {/* Quick WhatsApp Support */}

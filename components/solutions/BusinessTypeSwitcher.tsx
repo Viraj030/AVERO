@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ArrowRightIcon } from 'lucide-react';
+import { ArrowRightIcon, XIcon, ZoomInIcon } from 'lucide-react';
 import { businessOrder, businessPanels } from '@/data/businessTypes';
 import type { BusinessType } from '@/types/avero';
 import { Button } from '@/components/ui/Button';
@@ -27,12 +28,32 @@ export function BusinessTypeSwitcher({ onOpenAudit }: BusinessTypeSwitcherProps)
   };
 
   const [active, setActive] = useState<BusinessType>('ecommerce');
+  const [zoomImage, setZoomImage] = useState<{ src: string; title: string } | null>(null);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setZoomImage(null);
+    };
+    if (zoomImage) {
+      window.addEventListener('keydown', handleKeyDown);
+    }
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [zoomImage]);
+
   const panel = businessPanels[active];
+  const dashboardSrc =
+    active === 'ecommerce'
+      ? '/images/supplemart.jpg'
+      : '/images/suerly-placed-dashboard.jpg';
+  const dashboardTitle =
+    active === 'ecommerce'
+      ? 'Supplemart Ads Manager Performance'
+      : 'Surely Placed Ads Manager Performance';
 
   return (
     <Section
       aria-labelledby="business-heading"
-      className="bg-white py-20 lg:py-28"
+      className="bg-white py-16 lg:py-22"
     >
       <div className="flex flex-col gap-8 border-b border-navy/10 pb-8 lg:flex-row lg:items-end lg:justify-between">
         <div>
@@ -93,7 +114,7 @@ export function BusinessTypeSwitcher({ onOpenAudit }: BusinessTypeSwitcherProps)
           className="grid gap-12 pt-12 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-16"
         >
           <div>
-            <h3 className="max-w-[16ch] font-display text-[26px] font-semibold leading-[1.15] tracking-[-0.02em] text-navy sm:text-[30px]">
+            <h3 className="max-w-[20ch] font-display text-[26px] font-semibold leading-[1.15] tracking-[-0.02em] text-navy sm:text-[30px]">
               {panel.headline}
             </h3>
             <p className="mt-5 max-w-[44ch] text-[15.5px] leading-[1.7] text-charcoal/70">
@@ -122,65 +143,129 @@ export function BusinessTypeSwitcher({ onOpenAudit }: BusinessTypeSwitcherProps)
             </div>
           </div>
 
-          <div className="overflow-hidden rounded-card border border-navy/12 bg-offwhite">
-            <div className="flex items-center justify-between border-b border-navy/10 px-5 py-3.5">
-              <p className="font-mono text-[11px] font-semibold uppercase tracking-eyebrow text-navy/80">
-                {panel.label} performance view
-              </p>
-              <p className="font-mono text-[11px] font-semibold text-navy/70">Trailing 30d</p>
+          <div className="overflow-hidden rounded-[18px] border border-navy/15 bg-[#F7F5EF] p-3.5 sm:p-4 lg:p-4.5 flex flex-col justify-between shadow-sm">
+            {/* Top Header */}
+            <div className="flex items-center justify-between gap-3 mb-3 sm:mb-3.5">
+              <div className="relative h-12 sm:h-14 lg:h-16 w-48 sm:w-60 lg:w-64">
+                <Image
+                  src={
+                    active === 'ecommerce'
+                      ? '/images/supplemart-logo.avif'
+                      : '/images/suerly-placed.png'
+                  }
+                  alt={
+                    active === 'ecommerce' ? 'Supplemart Logo' : 'Surely Placed Logo'
+                  }
+                  fill
+                  className="object-contain object-left"
+                  priority
+                />
+              </div>
+              <div className="text-right shrink-0">
+                <p className="font-mono text-[11px] sm:text-[12px] font-bold uppercase tracking-wider text-navy/85">
+                  {active === 'ecommerce'
+                    ? 'E-COMMERCE PERFORMANCE'
+                    : 'LEAD GENERATION PERFORMANCE'}
+                </p>
+                <p className="font-mono text-[10.5px] sm:text-[11.5px] font-medium text-navy/65 mt-0.5">
+                  {active === 'ecommerce'
+                    ? '1 AUG 2025 – 26 FEB 2026'
+                    : '30 JUN 2023 – 30 JUL 2026'}
+                </p>
+              </div>
             </div>
 
-            <dl className="grid grid-cols-2 gap-px bg-navy/10 sm:grid-cols-4">
-              {panel.metrics.map((metric) => (
-                <div key={metric.label} className="bg-offwhite px-4 py-5">
-                  <dt className="font-mono text-[10.5px] font-semibold uppercase tracking-eyebrow text-navy/75">
-                    {metric.label}
-                  </dt>
-                  <dd className="mt-2 font-display text-[22px] font-semibold tabular-nums text-navy">
-                    {metric.value}
-                  </dd>
-                  <p className="mt-1 text-[11.5px] text-charcoal/75">
+            {/* Dashboard Screenshot (Click to zoom) */}
+            <div
+              onClick={() =>
+                setZoomImage({ src: dashboardSrc, title: dashboardTitle })
+              }
+              className="group relative cursor-pointer overflow-hidden rounded-xl border border-navy/12 bg-white shadow-sm mb-3.5 sm:mb-4"
+            >
+              <Image
+                src={dashboardSrc}
+                alt={dashboardTitle}
+                width={1200}
+                height={675}
+                className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-[1.01]"
+                priority
+              />
+              <div className="absolute inset-0 bg-navy/25 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center pointer-events-none">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-navy/90 px-3.5 py-1.5 text-[12px] font-medium text-white shadow-lg backdrop-blur-xs">
+                  <ZoomInIcon className="h-3.5 w-3.5 text-amber-400" /> Click to enlarge dashboard
+                </span>
+              </div>
+            </div>
+
+            {/* 4 Metrics Row */}
+            <dl className="grid grid-cols-2 gap-y-4 gap-x-3 sm:grid-cols-4 sm:gap-x-0 sm:divide-x sm:divide-navy/15 pt-0.5">
+              {panel.metrics.map((metric, idx) => (
+                <div
+                  key={metric.label}
+                  className={`flex flex-col justify-between ${
+                    idx === 0 ? 'sm:pr-3' : idx === 3 ? 'sm:pl-3.5' : 'sm:px-3.5'
+                  }`}
+                >
+                  <div>
+                    <dt className="font-mono text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-navy/75 leading-tight min-h-[24px] flex items-end">
+                      {metric.label}
+                    </dt>
+                    <dd className="mt-1 font-display text-[22px] sm:text-[24px] lg:text-[27px] font-bold tracking-tight text-navy tabular-nums">
+                      {metric.value}
+                    </dd>
+                  </div>
+                  <p className="mt-0.5 text-[11px] sm:text-[11.5px] text-charcoal/70">
                     {metric.caption}
                   </p>
                 </div>
               ))}
             </dl>
-
-            <div className="border-t border-navy/10 px-5 py-6">
-              <p className="font-mono text-[10.5px] font-semibold uppercase tracking-eyebrow text-navy/75">
-                Budget allocation
-              </p>
-              <ul className="mt-4 space-y-3.5">
-                {panel.bars.map((bar, i) => (
-                  <li key={bar.label} className="flex items-center gap-4">
-                    <span className="w-[38%] shrink-0 text-[13px] text-charcoal/75 sm:w-[30%]">
-                      {bar.label}
-                    </span>
-                    <span className="h-[6px] flex-1 overflow-hidden rounded-full bg-navy/[0.08]">
-                      <motion.span
-                        className={`block h-full rounded-full ${i === 0 ? 'bg-navy' : 'bg-navy/35'
-                          }`}
-                        initial={{ width: 0 }}
-                        animate={{ width: `${bar.value}%` }}
-                        transition={{
-                          duration: 0.6,
-                          delay: 0.1 + i * 0.08,
-                          ease: [0.23, 1, 0.32, 1]
-                        }}
-                      />
-                    </span>
-                    <span className="w-10 shrink-0 text-right font-mono text-[12px] tabular-nums text-navy/70">
-                      {bar.value}%
-                    </span>
-                  </li>
-                ))}
-              </ul>
-              <p className="mt-6 font-mono text-[10.5px] font-semibold uppercase tracking-eyebrow text-navy/70">
-                Illustrative figures · replace with account data
-              </p>
-            </div>
           </div>
         </motion.div>
+      </AnimatePresence>
+
+      {/* Lightbox Image Modal */}
+      <AnimatePresence>
+        {zoomImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setZoomImage(null)}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-md p-4 sm:p-6 lg:p-8"
+          >
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative max-w-6xl w-full bg-[#111827] rounded-2xl border border-white/15 overflow-hidden shadow-2xl flex flex-col"
+            >
+              <div className="flex items-center justify-between px-4 sm:px-6 py-3 border-b border-white/10 bg-black/40">
+                <span className="font-mono text-[12px] sm:text-[13px] font-semibold text-white/90 uppercase tracking-wider">
+                  {zoomImage.title}
+                </span>
+                <button
+                  onClick={() => setZoomImage(null)}
+                  className="avero-focus rounded-full p-1.5 text-white/70 hover:text-white hover:bg-white/15 transition-colors"
+                  aria-label="Close modal"
+                >
+                  <XIcon className="h-5 w-5" />
+                </button>
+              </div>
+              <div className="p-2 sm:p-4 overflow-auto max-h-[82vh] flex items-center justify-center bg-black/60">
+                <Image
+                  src={zoomImage.src}
+                  alt={zoomImage.title}
+                  width={1600}
+                  height={900}
+                  className="w-full h-auto object-contain rounded-lg shadow-md"
+                  priority
+                />
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
       </AnimatePresence>
     </Section>
   );

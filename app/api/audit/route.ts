@@ -16,8 +16,8 @@ export async function POST(request: Request) {
       );
     }
 
-    // Log lead to Google Sheets & send email confirmation in parallel
-    const sheetsPromise = submitToGoogleSheets({
+    // Log lead to Google Sheets & send email confirmation in background (non-blocking)
+    submitToGoogleSheets({
       submittedAt: new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }),
       formType: formType || 'Hero Form',
       name,
@@ -29,20 +29,18 @@ export async function POST(request: Request) {
       channels: Array.isArray(channels) ? channels.join(', ') : channels || 'N/A'
     }).catch((err) => console.error('[Google Sheets error]:', err));
 
-    const emailPromise = email
-      ? sendAuditConfirmationEmail({
-          name,
-          email,
-          website,
-          phone,
-          spend,
-          objective,
-          channels,
-          formType: formType || 'Hero Form'
-        }).catch((err) => console.error('[Email error]:', err))
-      : Promise.resolve();
-
-    await Promise.allSettled([sheetsPromise, emailPromise]);
+    if (email) {
+      sendAuditConfirmationEmail({
+        name,
+        email,
+        website,
+        phone,
+        spend,
+        objective,
+        channels,
+        formType: formType || 'Hero Form'
+      }).catch((err) => console.error('[Email error]:', err));
+    }
 
     return NextResponse.json({
       success: true,

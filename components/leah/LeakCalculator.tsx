@@ -32,7 +32,7 @@ export function LeakCalculator({ onOpenAudit }: LeakCalculatorProps) {
     <Section
       id="calculator"
       aria-labelledby="calculator-heading"
-      className="relative overflow-hidden bg-navy-900 py-20 text-white lg:py-28"
+      className="relative overflow-hidden bg-navy-900 py-16 text-white lg:py-22"
     >
       <div
         className="avero-grid-lines pointer-events-none absolute inset-0"

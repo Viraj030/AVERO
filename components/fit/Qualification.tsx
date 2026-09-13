@@ -22,7 +22,7 @@ export function Qualification() {
   return (
     <Section
       aria-labelledby="fit-heading"
-      className="bg-white py-20 lg:py-28"
+      className="bg-white py-16 lg:py-22"
     >
       <Eyebrow>Fit</Eyebrow>
       <h2

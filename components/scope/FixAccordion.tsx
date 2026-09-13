@@ -14,7 +14,7 @@ export function FixAccordion() {
     <Section
       id="what-we-fix"
       aria-labelledby="fix-heading"
-      className="bg-white py-20 lg:py-28"
+      className="bg-white py-16 lg:py-22"
     >
       <div className="grid gap-10 lg:grid-cols-[minmax(0,0.62fr)_minmax(0,1.38fr)] lg:gap-16">
         <div className="lg:sticky lg:top-28 lg:self-start">

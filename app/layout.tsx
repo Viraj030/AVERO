@@ -50,8 +50,9 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${inter.variable} ${interTight.variable} ${ibmPlexMono.variable}`}
+      suppressHydrationWarning
     >
-      <body className="min-h-full w-full bg-white text-charcoal antialiased">
+      <body className="min-h-full w-full bg-white text-charcoal antialiased" suppressHydrationWarning>
         {children}
       </body>
     </html>

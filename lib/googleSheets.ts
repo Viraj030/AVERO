@@ -3,13 +3,18 @@ export async function submitToGoogleSheets(data: Record<string, any>) {
     process.env.GOOGLE_SHEETS_SCRIPT_URL ||
     'https://script.google.com/macros/s/AKfycbzPYxeL-eiA9S5Jpv0Q4Y40wkFbEA9mBBwk5NZI0UmIHO3hb-xxxVvv2J1eVHAvX0owzg/exec';
 
+  const sanitizedData: Record<string, any> = {};
+  for (const [key, val] of Object.entries(data)) {
+    sanitizedData[key] = Array.isArray(val) ? val.join(', ') : val;
+  }
+
   try {
     const response = await fetch(scriptUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(sanitizedData),
       redirect: 'follow'
     });
 

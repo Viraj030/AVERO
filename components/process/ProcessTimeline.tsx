@@ -23,7 +23,7 @@ export function ProcessTimeline() {
     <Section
       id="process"
       aria-labelledby="process-heading"
-      className="bg-offwhite py-20 lg:py-28"
+      className="bg-offwhite py-16 lg:py-22"
     >
       <div className="max-w-[46ch]">
         <Eyebrow>Process</Eyebrow>
@@ -31,7 +31,7 @@ export function ProcessTimeline() {
           id="process-heading"
           className="mt-6 font-display text-[32px] font-semibold leading-[1.08] tracking-[-0.025em] text-navy sm:text-[42px]"
         >
-          No black box. Here&rsquo;s how we work.
+          Here&rsquo;s how we work.
         </h2>
       </div>
 
