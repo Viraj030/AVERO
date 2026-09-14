@@ -29,54 +29,39 @@ export function PerformanceFramework() {
   const scrollRef = useRef<HTMLOListElement>(null);
   const inView = useInView(ref, { once: true, margin: '-20%' });
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
 
-  // Auto-scroll loop on mobile every 3.5 seconds (stops permanently when user manually scrolls or touches)
-  useEffect(() => {
-    if (isPaused) return;
-    const timer = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % stages.length);
-    }, 3500);
-    return () => clearInterval(timer);
-  }, [isPaused]);
-
-  // Programmatic smooth scroll when activeIndex changes on mobile
-  useEffect(() => {
-    if (scrollRef.current && window.innerWidth < 768) {
+  const scrollToCard = (index: number) => {
+    setActiveIndex(index);
+    if (scrollRef.current) {
       const container = scrollRef.current;
-      const cardWidth = container.clientWidth * 0.8; // ~80% width per card
-      container.scrollTo({
-        left: activeIndex * cardWidth,
-        behavior: 'smooth'
-      });
-    }
-  }, [activeIndex]);
-
-  const pauseAutoScroll = () => {
-    if (!isPaused) {
-      setIsPaused(true);
+      const card = container.children[index] as HTMLElement;
+      if (card) {
+        container.scrollTo({
+          left: card.offsetLeft,
+          behavior: 'smooth'
+        });
+      }
     }
   };
 
   const handleNext = () => {
-    pauseAutoScroll();
-    setActiveIndex((prev) => (prev + 1) % stages.length);
+    const nextIdx = (activeIndex + 1) % stages.length;
+    scrollToCard(nextIdx);
   };
 
   const handlePrev = () => {
-    pauseAutoScroll();
-    setActiveIndex((prev) => (prev - 1 + stages.length) % stages.length);
+    const prevIdx = (activeIndex - 1 + stages.length) % stages.length;
+    scrollToCard(prevIdx);
   };
 
   const handleDotClick = (idx: number) => {
-    pauseAutoScroll();
-    setActiveIndex(idx);
+    scrollToCard(idx);
   };
 
   return (
     <Section
       aria-labelledby="framework-heading"
-      className="relative overflow-hidden bg-navy-900 py-16 text-white lg:py-22"
+      className="relative overflow-hidden bg-navy-900 pt-8 pb-16 text-white lg:py-22"
     >
       <div
         className="avero-grid-lines pointer-events-none absolute inset-0"
@@ -107,13 +92,9 @@ export function PerformanceFramework() {
             aria-hidden="true"
           />
 
-          {/* Cards container: Auto-loop carousel on mobile with 20% next card preview. Pauses on manual scroll or swipe */}
+          {/* Cards container: Carousel on mobile with 20% next card preview. Manual swipe */}
           <ol
             ref={scrollRef}
-            onTouchStart={pauseAutoScroll}
-            onMouseDown={pauseAutoScroll}
-            onWheel={pauseAutoScroll}
-            onScroll={pauseAutoScroll}
             className="flex flex-nowrap overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden pb-4 md:pb-0 md:grid md:grid-cols-3 gap-5 md:gap-10 lg:gap-12 snap-x snap-mandatory"
           >
             {stages.map((stage, i) => (
@@ -126,7 +107,7 @@ export function PerformanceFramework() {
                   delay: 0.15 + i * 0.14,
                   ease: [0.23, 1, 0.32, 1]
                 }}
-                className="relative rounded-2xl bg-white/[0.04] border border-white/10 p-6 md:p-0 md:bg-transparent md:border-none lg:pr-8 w-[78vw] sm:w-[65vw] md:w-auto shrink-0 snap-center transition-all duration-300"
+                className="relative rounded-2xl bg-white/[0.04] border border-white/10 p-6 md:p-0 md:bg-transparent md:border-none lg:pr-8 w-[78vw] sm:w-[65vw] md:w-auto shrink-0 snap-start transition-all duration-300"
               >
                 <span
                   className="absolute left-0 top-[3px] hidden h-[9px] w-[9px] rotate-45 bg-gold lg:block"

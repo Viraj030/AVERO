@@ -15,7 +15,7 @@ export function TrustBar() {
   return (
     <section
       aria-label="Capabilities Marquee"
-      className="w-full overflow-hidden border-y border-navy/10 bg-white py-8 lg:py-11"
+      className="w-full overflow-hidden border-y border-navy/10 bg-white pt-8 pb-8 lg:py-11"
     >
       <style>{`
         @keyframes avero-marquee {

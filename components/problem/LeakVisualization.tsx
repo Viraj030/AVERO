@@ -18,7 +18,7 @@ export function LeakVisualization() {
     <Section
       id="leak"
       aria-labelledby="leak-heading"
-      className="bg-white py-16 lg:py-22"
+      className="bg-white pt-8 pb-16 lg:py-22"
     >
       <div className="grid gap-12 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)] lg:gap-20">
         <div className="lg:sticky lg:top-28 lg:self-start">

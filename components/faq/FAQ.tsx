@@ -11,7 +11,7 @@ export function FAQ() {
   const [open, setOpen] = useState<number | null>(null);
 
   return (
-    <Section id="faq" aria-labelledby="faq-heading" className="bg-offwhite py-16 lg:py-22">
+    <Section id="faq" aria-labelledby="faq-heading" className="bg-offwhite pt-8 pb-16 lg:py-22">
       <div className="grid gap-10 lg:grid-cols-[minmax(0,0.55fr)_minmax(0,1.45fr)] lg:gap-16">
         <div className="lg:sticky lg:top-28 lg:self-start">
           <Eyebrow>FAQ</Eyebrow>

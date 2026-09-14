@@ -29,9 +29,7 @@ export const businessPanels: Record<BusinessType, BusinessPanel> = {
       'PURCHASE OPTIMIZATION',
       'RETARGETING',
       'CREATIVE TESTING',
-      'AUDIENCE TARGETING',
-      'CBO',
-      'ADVANTAGE+ PLACEMENTS'
+      'AUDIENCE TARGETING'
     ],
 
     bars: [
@@ -54,7 +52,7 @@ export const businessPanels: Record<BusinessType, BusinessPanel> = {
     ],
 
     focus: [
-      'FULL-FUNNEL META ADS',
+      'FULL-FUNNEL APPROACH',
       'AUDIENCE TESTING',
       'CREATIVE ITERATION',
       'RETARGETING',

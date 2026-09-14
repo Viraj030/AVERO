@@ -1,8 +1,9 @@
 'use client';
 
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 import { Section } from '@/components/ui/Section';
 
 const cards = [
@@ -30,11 +31,42 @@ const cards = [
 ];
 
 export function WhyAvero() {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const scrollToCard = (index: number) => {
+    setActiveIndex(index);
+    if (scrollRef.current) {
+      const container = scrollRef.current;
+      const card = container.children[index] as HTMLElement;
+      if (card) {
+        container.scrollTo({
+          left: card.offsetLeft,
+          behavior: 'smooth'
+        });
+      }
+    }
+  };
+
+  const handleNext = () => {
+    const nextIdx = (activeIndex + 1) % cards.length;
+    scrollToCard(nextIdx);
+  };
+
+  const handlePrev = () => {
+    const prevIdx = (activeIndex - 1 + cards.length) % cards.length;
+    scrollToCard(prevIdx);
+  };
+
+  const handleDotClick = (idx: number) => {
+    scrollToCard(idx);
+  };
+
   return (
     <Section
       id="why-avero"
       aria-labelledby="why-heading"
-      className="relative bg-[#FAF9F5] py-16 lg:py-22"
+      className="relative bg-[#FAF9F5] pt-8 pb-16 lg:py-22"
     >
       <div className="relative mx-auto max-w-shell">
         {/* Centered Header */}
@@ -66,8 +98,11 @@ export function WhyAvero() {
           </p>
         </div>
 
-        {/* 3 Cards Grid */}
-        <div className="mt-14 grid grid-cols-1 gap-6 md:grid-cols-3 lg:gap-8 items-stretch">
+        {/* 3 Cards Grid / Mobile Carousel */}
+        <div
+          ref={scrollRef}
+          className="mt-12 flex flex-nowrap overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden pb-2 md:pb-0 md:grid md:grid-cols-3 gap-5 md:gap-8 items-stretch snap-x snap-mandatory"
+        >
           {cards.map((card, i) => (
             <motion.div
               key={card.index}
@@ -75,18 +110,18 @@ export function WhyAvero() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.1, ease: [0.23, 1, 0.32, 1] }}
-              className="group flex flex-col justify-between rounded-[24px] border border-navy/10 bg-white p-6 sm:p-7 shadow-[0_4px_25px_rgba(18,59,109,0.05)] transition-all duration-300 hover:-translate-y-1.5 hover:border-gold/60 hover:shadow-xl"
+              className="group flex flex-col justify-between rounded-[20px] sm:rounded-[24px] border border-navy/10 bg-white p-5 sm:p-7 shadow-[0_4px_25px_rgba(18,59,109,0.05)] transition-all duration-300 hover:-translate-y-1.5 hover:border-gold/60 hover:shadow-xl w-[78vw] sm:w-[65vw] md:w-auto shrink-0 snap-start"
             >
               {/* Card Top: Number badge */}
               <div>
                 <div className="flex items-center justify-between">
-                  <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-slate-100 font-mono text-[12.5px] font-bold text-navy">
+                  <span className="inline-flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full bg-slate-100 font-mono text-[11.5px] sm:text-[12.5px] font-bold text-navy">
                     {card.index}
                   </span>
                 </div>
 
-                {/* Card Image Illustration - Fixed Height for Uniform Alignment */}
-                <div className="relative my-3 flex h-[175px] sm:h-[195px] w-full items-center justify-center">
+                {/* Card Image Illustration - Reduced Height */}
+                <div className="relative my-2 sm:my-3 flex h-[120px] sm:h-[165px] w-full items-center justify-center">
                   <Image
                     src={card.image}
                     alt={card.alt}
@@ -100,17 +135,52 @@ export function WhyAvero() {
               </div>
 
               {/* Card Bottom: Gold Bar, Title & Description */}
-              <div className="flex flex-col pt-3">
-                <div className="mb-3 h-[3.5px] w-8 shrink-0 rounded-full bg-gold" aria-hidden="true" />
-                <h3 className="font-display text-[19px] sm:text-[21px] font-bold leading-[1.25] tracking-[-0.015em] text-navy">
+              <div className="flex flex-col pt-2 sm:pt-3">
+                <div className="mb-2.5 h-[3px] sm:h-[3.5px] w-7 sm:w-8 shrink-0 rounded-full bg-gold" aria-hidden="true" />
+                <h3 className="font-display text-[17.5px] sm:text-[21px] font-bold leading-[1.25] tracking-[-0.015em] text-navy">
                   {card.title}
                 </h3>
-                <p className="mt-2.5 text-[14px] sm:text-[14.5px] leading-[1.55] text-charcoal/75">
+                <p className="mt-2 text-[13.5px] sm:text-[14.5px] leading-[1.5] text-charcoal/75">
                   {card.description}
                 </p>
               </div>
             </motion.div>
           ))}
+        </div>
+
+        {/* Mobile Carousel Navigation Controls (Arrows & Indicators) */}
+        <div className="mt-6 flex items-center justify-between md:hidden">
+          <div className="flex items-center gap-2">
+            {cards.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => handleDotClick(idx)}
+                aria-label={`Go to slide ${idx + 1}`}
+                className={`h-2 rounded-full transition-all duration-300 ${
+                  activeIndex === idx ? 'w-7 bg-gold' : 'w-2 bg-navy/20'
+                }`}
+              />
+            ))}
+          </div>
+
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={handlePrev}
+              aria-label="Previous step"
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-navy/20 bg-navy/5 text-navy active:scale-95 transition-transform"
+            >
+              <ChevronLeftIcon className="h-4 w-4 text-navy" />
+            </button>
+            <button
+              type="button"
+              onClick={handleNext}
+              aria-label="Next step"
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-navy/20 bg-navy/5 text-navy active:scale-95 transition-transform"
+            >
+              <ChevronRightIcon className="h-4 w-4 text-navy" />
+            </button>
+          </div>
         </div>
       </div>
     </Section>

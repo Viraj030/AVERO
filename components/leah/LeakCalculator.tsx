@@ -32,7 +32,7 @@ export function LeakCalculator({ onOpenAudit }: LeakCalculatorProps) {
     <Section
       id="calculator"
       aria-labelledby="calculator-heading"
-      className="relative overflow-hidden bg-navy-900 py-16 text-white lg:py-22"
+      className="relative overflow-hidden bg-navy-900 pt-8 pb-16 text-white lg:py-22"
     >
       <div
         className="avero-grid-lines pointer-events-none absolute inset-0"
@@ -185,7 +185,7 @@ export function LeakCalculator({ onOpenAudit }: LeakCalculatorProps) {
                 onClick={() => handleOpenAudit(spendBucket(spend))}
                 aria-haspopup="dialog"
               >
-                Pressure-test this in 15 minutes
+                Get My 15 minute Audit
                 <ArrowRightIcon
                   className="h-4 w-4 transition-transform duration-200 ease-premium group-hover:translate-x-1"
                   aria-hidden="true"

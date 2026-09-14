@@ -17,9 +17,12 @@ import { Footer } from '@/components/footer/Footer';
 import { StickyMobileCTA } from '@/components/sticky/StickyMobileCTA';
 import { AuditModalProvider } from '@/components/audit/AuditModalContext';
 
+import { ScrollToTop } from '@/components/utils/ScrollToTop';
+
 export default function Page() {
   return (
     <AuditModalProvider>
+      <ScrollToTop />
       <div className="min-h-full w-full bg-white">
         <Navbar />
 

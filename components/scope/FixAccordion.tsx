@@ -14,7 +14,7 @@ export function FixAccordion() {
     <Section
       id="what-we-fix"
       aria-labelledby="fix-heading"
-      className="bg-white py-16 lg:py-22"
+      className="bg-white pt-8 pb-16 lg:py-22"
     >
       <div className="grid gap-10 lg:grid-cols-[minmax(0,0.62fr)_minmax(0,1.38fr)] lg:gap-16">
         <div className="lg:sticky lg:top-28 lg:self-start">
@@ -26,8 +26,7 @@ export function FixAccordion() {
             What we actually fix.
           </h2>
           <p className="mt-5 max-w-[36ch] text-[15.5px] leading-[1.7] text-charcoal/65">
-            Four systems, one economic outcome. Open any module to see the
-            specific problems we look for.
+            We find the leaks across your ads, creative, conversion and tracking — then focus on the fixes that can move your numbers.
           </p>
         </div>
 
@@ -57,9 +56,8 @@ export function FixAccordion() {
                     </span>
                     <span
                       aria-hidden="true"
-                      className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-navy/15 text-navy transition-transform duration-300 ease-premium ${
-                        isOpen ? 'rotate-45 border-gold bg-gold/10 text-gold-deep' : ''
-                      }`}
+                      className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-navy/15 text-navy transition-transform duration-300 ease-premium ${isOpen ? 'rotate-45 border-gold bg-gold/10 text-gold-deep' : ''
+                        }`}
                     >
                       <PlusIcon className="h-4 w-4" />
                     </span>

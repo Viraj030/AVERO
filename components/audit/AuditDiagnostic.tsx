@@ -78,7 +78,7 @@ export function AuditDiagnostic({ onOpenAudit }: AuditDiagnosticProps) {
     <Section
       id="audit"
       aria-labelledby="audit-heading"
-      className="bg-offwhite py-16 lg:py-22"
+      className="bg-offwhite pt-8 pb-16 lg:py-22"
     >
       <div className="grid gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-16">
         <div className="lg:sticky lg:top-28 lg:self-start">

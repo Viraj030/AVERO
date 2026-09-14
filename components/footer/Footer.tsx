@@ -35,9 +35,9 @@ const socialLinks = [
 export function Footer() {
   return (
     <footer className="w-full border-t border-navy/10 bg-white px-5 sm:px-8 pb-[5rem] md:pb-6">
-      <div className="mx-auto flex w-full max-w-shell flex-col gap-6 py-8 md:flex-row md:items-center md:justify-between">
+      <div className="mx-auto flex w-full max-w-shell flex-col items-center text-center gap-6 py-8 md:flex-row md:items-center md:justify-between md:text-left">
         {/* Brand */}
-        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
+        <div className="flex flex-col items-center gap-2 sm:flex-row sm:items-center sm:gap-4">
           <Image
             src="/images/logo.png"
             alt="AVERO Performance Marketing"
@@ -48,12 +48,12 @@ export function Footer() {
         </div>
 
         {/* WhatsApp & Social Media Links */}
-        <div className="flex flex-wrap items-center gap-3 sm:gap-4">
+        <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 sm:gap-4">
           <a
             href="https://wa.me/918692918021"
             target="_blank"
             rel="noopener noreferrer"
-            className="avero-focus group inline-flex items-center gap-2 rounded-full border border-navy/15 bg-white px-3.5 py-1.5 text-xs font-mono font-medium text-navy transition-all duration-200 hover:border-emerald-500/40 hover:bg-emerald-50/50 hover:text-emerald-800"
+            className="avero-focus group hidden sm:inline-flex items-center gap-2 rounded-full border border-navy/15 bg-white px-3.5 py-1.5 text-xs font-mono font-medium text-navy transition-all duration-200 hover:border-emerald-500/40 hover:bg-emerald-50/50 hover:text-emerald-800"
           >
             <svg
               className="h-3.5 w-3.5 text-emerald-600 transition-transform duration-200 group-hover:scale-110"
@@ -68,7 +68,7 @@ export function Footer() {
             </span>
           </a>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center justify-center gap-2">
             {socialLinks.map((social) => (
               <a
                 key={social.name}
@@ -86,7 +86,7 @@ export function Footer() {
       </div>
 
       {/* Bottom Copyright */}
-      <div className="mx-auto w-full max-w-shell border-t border-navy/10 py-4">
+      <div className="mx-auto w-full max-w-shell border-t border-navy/10 py-4 text-center md:text-left">
         <p className="font-mono text-[11px] uppercase tracking-eyebrow text-navy/80 font-semibold">
           © {new Date().getFullYear()} AVERO — Performance Marketing. All rights reserved.
         </p>

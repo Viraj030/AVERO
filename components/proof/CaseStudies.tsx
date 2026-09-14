@@ -8,6 +8,7 @@ import { caseStudies } from '@/data/caseStudies';
 import type { CaseStudy } from '@/types/avero';
 import { Eyebrow } from '@/components/ui/Eyebrow';
 import { Section } from '@/components/ui/Section';
+import { AnimatedCounter } from '@/components/ui/AnimatedCounter';
 
 export function CaseStudies() {
   const [zoomImage, setZoomImage] = useState<{ src: string; title: string } | null>(null);
@@ -17,16 +18,22 @@ export function CaseStudies() {
       if (e.key === 'Escape') setZoomImage(null);
     };
     if (zoomImage) {
+      document.body.style.overflow = 'hidden';
       window.addEventListener('keydown', handleKeyDown);
+    } else {
+      document.body.style.overflow = '';
     }
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', handleKeyDown);
+    };
   }, [zoomImage]);
 
   return (
     <Section
       id="results"
       aria-labelledby="results-heading"
-      className="bg-white py-16 lg:py-22"
+      className="bg-white pt-8 pb-16 lg:py-22"
     >
       <div className="flex flex-col gap-6 border-b border-navy/12 pb-8 lg:flex-row lg:items-end lg:justify-between">
         <div>
@@ -51,7 +58,7 @@ export function CaseStudies() {
         ))}
       </div>
 
-      {/* Lightbox Image Modal */}
+      {/* Lightbox Image Modal (Brand Navy & Gold Styling) */}
       <AnimatePresence>
         {zoomImage && (
           <motion.div
@@ -59,34 +66,34 @@ export function CaseStudies() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setZoomImage(null)}
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-md p-4 sm:p-6 lg:p-8"
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-navy-950/90 backdrop-blur-md p-4 sm:p-6 lg:p-8"
           >
             <motion.div
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
-              className="relative max-w-6xl w-full bg-[#111827] rounded-2xl border border-white/15 overflow-hidden shadow-2xl flex flex-col"
+              className="relative max-w-6xl w-full bg-navy-900 rounded-2xl border border-gold/30 overflow-hidden shadow-2xl flex flex-col"
             >
-              <div className="flex items-center justify-between px-4 sm:px-6 py-3 border-b border-white/10 bg-black/40">
-                <span className="font-mono text-[12px] sm:text-[13px] font-semibold text-white/90 uppercase tracking-wider">
+              <div className="flex items-center justify-between px-4 sm:px-6 py-3.5 border-b border-white/10 bg-navy-950/80">
+                <span className="font-mono text-[12px] sm:text-[13px] font-semibold text-gold uppercase tracking-wider">
                   {zoomImage.title}
                 </span>
                 <button
                   onClick={() => setZoomImage(null)}
-                  className="avero-focus rounded-full p-1.5 text-white/70 hover:text-white hover:bg-white/15 transition-colors"
+                  className="avero-focus rounded-full p-1.5 text-white/70 hover:text-gold hover:bg-white/10 transition-colors"
                   aria-label="Close modal"
                 >
                   <XIcon className="h-5 w-5" />
                 </button>
               </div>
-              <div className="p-2 sm:p-4 overflow-auto max-h-[82vh] flex items-center justify-center bg-black/60">
+              <div className="p-2 sm:p-4 overflow-auto max-h-[82vh] flex items-center justify-center bg-navy-950/50">
                 <Image
                   src={zoomImage.src}
                   alt={zoomImage.title}
                   width={1600}
                   height={900}
-                  className="w-full h-auto object-contain rounded-lg shadow-md"
+                  className="w-full h-auto object-contain rounded-lg shadow-lg border border-white/10"
                   priority
                 />
               </div>
@@ -113,7 +120,7 @@ function CaseStudyBlock({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-15%' }}
       transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
-      className="grid gap-10 py-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:gap-16 lg:items-start"
+      className="grid gap-10 py-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:gap-16 lg:items-center"
     >
       <div className="flex flex-col">
         <p className="flex items-center gap-3 font-mono text-[12px] font-bold uppercase tracking-eyebrow text-navy/80">
@@ -151,9 +158,6 @@ function CaseStudyBlock({
               priority={index === 0}
             />
           </div>
-          <p className="font-mono text-[11px] sm:text-[11.5px] font-semibold text-navy/70 shrink-0">
-            {study.dateRange}
-          </p>
         </div>
 
         <div
@@ -187,7 +191,7 @@ function CaseStudyBlock({
                 {metric.label}
               </dt>
               <dd className="mt-1.5 font-display text-[19px] sm:text-[21px] font-semibold tabular-nums text-navy">
-                {metric.value}
+                <AnimatedCounter value={metric.value} />
               </dd>
             </div>
           ))}

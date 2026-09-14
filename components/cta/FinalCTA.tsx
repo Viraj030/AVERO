@@ -21,7 +21,7 @@ export function FinalCTA({ onOpenAudit, variant = 'leak' }: FinalCTAProps) {
       id="next-step"
 
       aria-labelledby="final-cta-heading"
-      className="relative overflow-hidden bg-navy-900 py-18 text-white lg:py-24"
+      className="relative overflow-hidden bg-navy-900 pt-8 pb-10 text-white lg:py-24"
     >
       <div
         className="avero-grid-lines pointer-events-none absolute inset-0 [mask-image:radial-gradient(70%_70%_at_50%_50%,black,transparent)]"
