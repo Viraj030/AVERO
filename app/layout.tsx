@@ -28,6 +28,11 @@ export const metadata: Metadata = {
   title: 'AVERO · Performance Marketing · Meta & Google Ads',
   description:
     'Give me 15 minutes. I’ll show you where your ads are losing money — and what I’d fix first. Performance marketing for Meta Ads, Google Ads, CRO, and tracking.',
+  icons: {
+    icon: '/images/favicon.png',
+    shortcut: '/images/favicon.png',
+    apple: '/images/favicon.png',
+  },
   openGraph: {
     title: 'AVERO · Performance Marketing · Meta & Google Ads',
     description:
@@ -54,6 +59,9 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
+        <link rel="icon" href="/images/favicon.png" type="image/png" />
+        <link rel="shortcut icon" href="/images/favicon.png" type="image/png" />
+        <link rel="apple-touch-icon" href="/images/favicon.png" />
         {/* Google Tag Manager */}
         <Script
           id="gtm-script"

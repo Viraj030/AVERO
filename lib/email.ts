@@ -1,6 +1,4 @@
 import nodemailer from 'nodemailer';
-import path from 'path';
-import fs from 'fs';
 
 export interface SendAuditConfirmationEmailParams {
   name: string;
@@ -42,13 +40,8 @@ export async function sendAuditConfirmationEmail({
   const adminEmail = process.env.ADMIN_EMAIL || 'info@averomedia.in';
   const adminCcEmail = process.env.ADMIN_CC_EMAIL || process.env.EMAIL_CC || 'asolkarviraj@gmail.com';
 
-  // Check logo path for CID inline attachment
-  const logoPath = path.join(process.cwd(), 'public', 'images', 'logo.png');
-  const hasLogo = fs.existsSync(logoPath);
-
-  // Live public HTTPS URL fallback for Gmail/Outlook image proxies
-  const hostedLogoUrl = 'https://averomedia.in/images/logo.png';
-  const logoImgSrc = hasLogo ? 'cid:averologo' : hostedLogoUrl;
+  // Hosted public HTTPS URL for Gmail/Outlook image rendering without local path reliance
+  const logoImgSrc = 'https://averomedia.in/logo.png';
 
   const contactText = phone && email ? `${email} / ${phone}` : email || phone || 'you';
   const channelsList = Array.isArray(channels) ? channels.join(', ') : channels || 'N/A';
@@ -89,61 +82,12 @@ export async function sendAuditConfirmationEmail({
               </div>
 
               <h2 style="margin: 0 0 16px 0; font-size: 22px; font-weight: 700; color: #123B6D; line-height: 1.35;">
-                We're reviewing your ad setup, ${name || 'there'}!
+                Thank you! We have received your audit request.
               </h2>
 
               <p style="margin: 0 0 24px 0; font-size: 15px; line-height: 1.6; color: #475569;">
-                Thank you for requesting your 15-Minute Performance Marketing Audit for <strong style="color: #0F172A;">${website || 'your website'}</strong>. Our growth team is reviewing your details and will contact you via <strong style="color: #123B6D;">${contactText}</strong> within 24 hours.
+                Our team will review your ad setup and reach out to you within 24 hours.
               </p>
-
-              <!-- Submitted Summary Box -->
-              <table width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 10px; margin-bottom: 28px;">
-                <tr>
-                  <td style="padding: 20px;">
-                    <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: #D4AF37; font-weight: 800; margin-bottom: 14px;">
-                      Submitted Diagnostic Details
-                    </div>
-                    <table width="100%" border="0" cellspacing="0" cellpadding="8" style="font-size: 14px; color: #1E293B;">
-                      <tr style="border-bottom: 1px solid #EDF2F7;">
-                        <td width="38%" style="color: #64748B; font-weight: 600;">Name:</td>
-                        <td style="font-weight: 700; color: #0F172A;">${name}</td>
-                      </tr>
-                      <tr style="border-bottom: 1px solid #EDF2F7;">
-                        <td style="color: #64748B; font-weight: 600;">Website:</td>
-                        <td style="font-weight: 700; color: #123B6D;">${website}</td>
-                      </tr>
-                      <tr style="border-bottom: 1px solid #EDF2F7;">
-                        <td style="color: #64748B; font-weight: 600;">Work Email:</td>
-                        <td style="font-weight: 700; color: #0F172A;">${email}</td>
-                      </tr>
-                      <tr style="border-bottom: 1px solid #EDF2F7;">
-                        <td style="color: #64748B; font-weight: 600;">Contact Phone:</td>
-                        <td style="font-weight: 700; color: #0F172A;">${phone}</td>
-                      </tr>
-                      <tr style="border-bottom: 1px solid #EDF2F7;">
-                        <td style="color: #64748B; font-weight: 600;">Monthly Spend:</td>
-                        <td style="font-weight: 700; color: #0F172A;">${spend || 'Not started'}</td>
-                      </tr>
-                      ${
-                        objective
-                          ? `<tr style="border-bottom: 1px solid #EDF2F7;">
-                              <td style="color: #64748B; font-weight: 600;">Objective:</td>
-                              <td style="font-weight: 700; color: #0F172A;">${objective}</td>
-                            </tr>`
-                          : ''
-                      }
-                      ${
-                        channelsList !== 'N/A'
-                          ? `<tr>
-                              <td style="color: #64748B; font-weight: 600;">Ad Channels:</td>
-                              <td style="font-weight: 700; color: #0F172A;">${channelsList}</td>
-                            </tr>`
-                          : ''
-                      }
-                    </table>
-                  </td>
-                </tr>
-              </table>
 
               <!-- WhatsApp Quick Action Callout -->
               <p style="margin: 0 0 14px 0; font-size: 14px; line-height: 1.5; color: #475569;">
@@ -278,23 +222,14 @@ export async function sendAuditConfirmationEmail({
         auth: { user, pass }
       });
 
-      const attachments = hasLogo
-        ? [
-            {
-              filename: 'logo.png',
-              path: logoPath,
-              cid: 'averologo' // inline CID reference for Gmail / Outlook
-            }
-          ]
-        : [];
+
 
       // Send to lead
       await transporter.sendMail({
         from: `"AVERO Performance Marketing" <${fromEmail}>`,
         to: email,
         subject: `Audit Request Received for ${website || 'your brand'} - AVERO`,
-        html: clientHtml,
-        attachments
+        html: clientHtml
       });
 
       // Send lead notification to admin & CC recipient
@@ -303,8 +238,7 @@ export async function sendAuditConfirmationEmail({
         to: adminEmail,
         ...(adminCcEmail ? { cc: adminCcEmail } : {}),
         subject: `🚨 New Lead: ${name} (${website}) - ${formType}`,
-        html: adminHtml,
-        attachments
+        html: adminHtml
       });
 
       console.log(`[Email] Lead notification and confirmation email sent successfully.`);
