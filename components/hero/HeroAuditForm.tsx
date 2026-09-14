@@ -66,25 +66,41 @@ export function HeroAuditForm({ id = 'audit-form', onSuccess }: HeroAuditFormPro
 
     const GOOGLE_SCRIPT_URL =
       process.env.NEXT_PUBLIC_GOOGLE_SHEETS_SCRIPT_URL ||
-      'https://script.google.com/macros/s/AKfycbzPYxeL-eiA9S5Jpv0Q4Y40wkFbEA9mBBwk5NZI0UmIHO3hb-xxxVvv2J1eVHAvX0owzg/exec';
+      process.env.GOOGLE_SHEETS_SCRIPT_URL ||
+      '';
 
-    // Fire background logging and redirect instantly
-    fetch('/api/audit', {
+    const fullPayload = {
+      submittedAt: new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }),
+      googleSheetUrl: GOOGLE_SCRIPT_URL,
+      ...payload
+    };
+
+    // Send directly to MilesWeb server endpoint (/api/audit.php)
+    fetch('/api/audit.php', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    }).catch((err) => {
-      console.warn('Backend API route error, logging directly to Google Sheets...', err);
-      fetch(GOOGLE_SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'text/plain' },
-        body: JSON.stringify({
-          submittedAt: new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }),
-          ...payload
-        })
-      }).catch((e) => console.error('Fallback sheet error:', e));
-    });
+      body: JSON.stringify(fullPayload),
+    })
+      .then((res) => {
+        if (!res.ok && GOOGLE_SCRIPT_URL) {
+          fetch(GOOGLE_SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'text/plain' },
+            body: JSON.stringify(fullPayload)
+          }).catch((e) => console.error('Google Sheet error:', e));
+        }
+      })
+      .catch((err) => {
+        if (GOOGLE_SCRIPT_URL) {
+          fetch(GOOGLE_SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'text/plain' },
+            body: JSON.stringify(fullPayload)
+          }).catch((e) => console.error('Google Sheet error:', e));
+        }
+      });
 
     if (onSuccess) {
       onSuccess();
