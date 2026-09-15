@@ -133,7 +133,10 @@ function sendSmtpEmail($to, $subject, $htmlContent, $replyTo = '', $cc = '') {
     $send($socket, "MAIL FROM: <{$fromEmail}>");
     $send($socket, "RCPT TO: <{$to}>");
     if (!empty($cc)) {
-        $send($socket, "RCPT TO: <{$cc}>");
+        $ccList = array_filter(array_map('trim', explode(',', $cc)));
+        foreach ($ccList as $ccAddr) {
+            $send($socket, "RCPT TO: <{$ccAddr}>");
+        }
     }
 
     $headers  = "MIME-Version: 1.0\r\n";
@@ -141,7 +144,7 @@ function sendSmtpEmail($to, $subject, $htmlContent, $replyTo = '', $cc = '') {
     $headers .= "From: {$fromName} <{$fromEmail}>\r\n";
     $headers .= "To: <{$to}>\r\n";
     if (!empty($cc)) {
-        $headers .= "Cc: <{$cc}>\r\n";
+        $headers .= "Cc: {$cc}\r\n";
     }
     if (!empty($replyTo)) {
         $headers .= "Reply-To: <{$replyTo}>\r\n";
@@ -190,7 +193,7 @@ $adminHtml = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"></head>
   '</table></td></tr></table></body></html>';
 
 $adminEmail = "info@averomedia.in";
-$adminCc = "asolkarviraj@gmail.com";
+$adminCc = "asolkarviraj@gmail.com, averomediainfo@gmail.com";
 
 writeAuditLog("Dispatching Admin Email to {$adminEmail} (CC: {$adminCc})");
 $adminRes = sendSmtpEmail($adminEmail, $adminSubject, $adminHtml, $email, $adminCc);

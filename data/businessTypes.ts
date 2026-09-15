@@ -16,7 +16,7 @@ export const businessPanels: Record<BusinessType, BusinessPanel> = {
     id: 'ecommerce',
     label: 'E-commerce',
     headline: 'More profitable purchases, not just more orders.',
-    copy: 'We build and scale e-commerce campaigns around what actually drives profitable growth. From audience targeting and retargeting to creative testing and purchase optimization.',
+    copy: 'We build and scale authentic e-commerce & D2C campaigns around what actually drives profitable growth. From high-intent audience targeting and retargeting to creative testing and purchase optimization.',
     cta: 'Scale My Store',
     metrics: [
       { label: 'PURCHASE ROAS', value: '16.24x', caption: 'Average across campaigns' },
@@ -42,7 +42,7 @@ export const businessPanels: Record<BusinessType, BusinessPanel> = {
     id: 'leadgen',
     label: 'Lead Generation',
     headline: 'Qualified leads, not just cheap form fills.',
-    copy: 'We build full-funnel lead generation campaigns that combine audience testing, creative iteration and retargeting to attract the right prospects and improve acquisition efficiency.',
+    copy: 'We build full-funnel lead generation campaigns for mentor-led cohort coaching and high-intent services, combining data-driven audience testing and structured qualification to turn clicks into enrolled clients.',
     cta: 'Generate Better Leads',
     metrics: [
       { label: 'COST PER LEAD', value: '$31', caption: 'Average CPL' },

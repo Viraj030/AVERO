@@ -54,8 +54,8 @@ export function BusinessTypeSwitcher({ onOpenAudit }: BusinessTypeSwitcherProps)
       : '/images/suerly-placed-dashboard.jpg';
   const dashboardTitle =
     active === 'ecommerce'
-      ? 'Supplemart Ads Manager Performance'
-      : 'Surely Placed Ads Manager Performance';
+      ? 'Authentic Supplements Store Ads Manager Performance'
+      : 'Career Coaching Platform Ads Manager Performance';
 
   return (
     <Section
@@ -153,32 +153,17 @@ export function BusinessTypeSwitcher({ onOpenAudit }: BusinessTypeSwitcherProps)
           <div className="overflow-hidden rounded-[18px] border border-navy/15 bg-[#F7F5EF] p-3.5 sm:p-4 lg:p-4.5 flex flex-col justify-between shadow-sm">
             {/* Top Header */}
             <div className="flex items-center justify-between gap-3 mb-3 sm:mb-3.5">
-              <div className="relative h-12 sm:h-14 lg:h-16 w-48 sm:w-60 lg:w-64">
-                <Image
-                  src={
-                    active === 'ecommerce'
-                      ? '/images/supplemart-logo.avif'
-                      : '/images/suerly-placed.png'
-                  }
-                  alt={
-                    active === 'ecommerce' ? 'Supplemart Logo' : 'Surely Placed Logo'
-                  }
-                  fill
-                  className="object-contain object-left"
-                  priority
-                />
-              </div>
+              <p className="font-display text-[14px] sm:text-[15.5px] font-bold text-navy leading-snug">
+                {active === 'ecommerce'
+                  ? 'Authentic Supplements Store'
+                  : 'Career Coaching & Analytics'}
+              </p>
               <div className="text-right shrink-0">
-                <p className="font-mono text-[11px] sm:text-[12px] font-bold uppercase tracking-wider text-navy/85">
+                <span className="inline-block font-mono text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-navy/70 bg-navy/5 px-2.5 py-1 rounded-md border border-navy/10">
                   {active === 'ecommerce'
-                    ? 'E-COMMERCE PERFORMANCE'
-                    : 'LEAD GENERATION PERFORMANCE'}
-                </p>
-                <p className="font-mono text-[10.5px] sm:text-[11.5px] font-medium text-navy/65 mt-0.5">
-                  {active === 'ecommerce'
-                    ? ''
-                    : '30 JUN 2023 – 30 JUL 2026'}
-                </p>
+                    ? 'E-COMMERCE'
+                    : 'LEAD GENERATION'}
+                </span>
               </div>
             </div>
 
@@ -230,7 +215,7 @@ export function BusinessTypeSwitcher({ onOpenAudit }: BusinessTypeSwitcherProps)
         </motion.div>
       </AnimatePresence>
 
-      {/* Lightbox Image Modal (Brand Navy & Gold Styling) */}
+      {/* Lightbox Image Modal with Mobile Swipe/Scroll Support */}
       <AnimatePresence>
         {zoomImage && (
           <motion.div
@@ -238,36 +223,43 @@ export function BusinessTypeSwitcher({ onOpenAudit }: BusinessTypeSwitcherProps)
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setZoomImage(null)}
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-navy-950/90 backdrop-blur-md p-4 sm:p-6 lg:p-8"
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-navy-950/92 backdrop-blur-md p-2 sm:p-6 lg:p-8"
           >
             <motion.div
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
-              className="relative max-w-6xl w-full bg-navy-900 rounded-2xl border border-gold/30 overflow-hidden shadow-2xl flex flex-col"
+              className="relative max-w-6xl w-full bg-navy-900 rounded-2xl border border-gold/30 overflow-hidden shadow-2xl flex flex-col max-h-[92vh] sm:max-h-[88vh]"
             >
-              <div className="flex items-center justify-between px-4 sm:px-6 py-3.5 border-b border-white/10 bg-navy-950/80">
-                <span className="font-mono text-[12px] sm:text-[13px] font-semibold text-gold uppercase tracking-wider">
+              <div className="flex items-center justify-between px-4 sm:px-6 py-3 sm:py-3.5 border-b border-white/10 bg-navy-950/80 shrink-0">
+                <span className="font-mono text-[12px] sm:text-[13px] font-semibold text-gold uppercase tracking-wider truncate pr-2">
                   {zoomImage.title}
                 </span>
                 <button
                   onClick={() => setZoomImage(null)}
-                  className="avero-focus rounded-full p-1.5 text-white/70 hover:text-gold hover:bg-white/10 transition-colors"
+                  className="avero-focus rounded-full p-1.5 text-white/70 hover:text-gold hover:bg-white/10 transition-colors shrink-0"
                   aria-label="Close modal"
                 >
                   <XIcon className="h-5 w-5" />
                 </button>
               </div>
-              <div className="p-2 sm:p-4 overflow-auto max-h-[82vh] flex items-center justify-center bg-navy-950/50">
-                <Image
-                  src={zoomImage.src}
-                  alt={zoomImage.title}
-                  width={1600}
-                  height={900}
-                  className="w-full h-auto object-contain rounded-lg shadow-lg border border-white/10"
-                  priority
-                />
+
+              <div className="p-1 sm:p-4 overflow-x-auto overflow-y-auto max-h-[76vh] sm:max-h-[80vh] flex items-center justify-start sm:justify-center bg-navy-950/60">
+                <div className="min-w-[650px] sm:min-w-0 w-full shrink-0 flex items-center justify-center">
+                  <Image
+                    src={zoomImage.src}
+                    alt={zoomImage.title}
+                    width={1600}
+                    height={900}
+                    className="w-full h-auto object-contain rounded-lg shadow-lg border border-white/10"
+                    priority
+                  />
+                </div>
+              </div>
+
+              <div className="sm:hidden px-3 py-2 bg-navy-950/95 border-t border-white/10 text-center font-mono text-[10.5px] text-white/70">
+                👉 Swipe left/right to view full dashboard metrics
               </div>
             </motion.div>
           </motion.div>

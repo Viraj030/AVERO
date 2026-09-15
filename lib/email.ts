@@ -35,10 +35,10 @@ export async function sendAuditConfirmationEmail({
     process.env.EMAIL_PASS ||
     process.env.EMAIL_PASSWORD;
 
-  // Default to info@averomedia.in & CC to asolkarviraj@gmail.com
+  // Default to info@averomedia.in & CC to asolkarviraj@gmail.com, averomediainfo@gmail.com
   const fromEmail = process.env.EMAIL_FROM || user || 'info@averomedia.in';
   const adminEmail = process.env.ADMIN_EMAIL || 'info@averomedia.in';
-  const adminCcEmail = process.env.ADMIN_CC_EMAIL || process.env.EMAIL_CC || 'asolkarviraj@gmail.com';
+  const adminCcEmail = process.env.ADMIN_CC_EMAIL || process.env.EMAIL_CC || 'asolkarviraj@gmail.com, averomediainfo@gmail.com';
 
   // Hosted public HTTPS URL for Gmail/Outlook image rendering without local path reliance
   const logoImgSrc = 'https://averomedia.in/logo.png';
