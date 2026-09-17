@@ -1,0 +1,37 @@
+# ----------------------------------------------------------------------
+# AVERO - Apache / LiteSpeed (mPanel / cPanel) Production Configuration
+# ----------------------------------------------------------------------
+
+# 1. Prevent Browser & Server Caching on HTML pages
+<IfModule mod_headers.c>
+  <FilesMatch "\.(html|htm)$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate, max-age=0"
+    Header set Pragma "no-cache"
+    Header set Expires "0"
+  </FilesMatch>
+  
+  # Cache static assets (JS, CSS, Images, Fonts) with public caching
+  <FilesMatch "\.(js|css|png|jpg|jpeg|gif|webp|svg|ico|woff|woff2)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+</IfModule>
+
+# 2. Clean URL Routing & Fallbacks
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Allow direct access to existing files and directories (PHP, images, etc.)
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # Route /thank-you to thank-you.html
+  RewriteRule ^thank-you/?$ thank-you.html [L]
+
+  # Fallback to index.html for SPA routes
+  RewriteRule ^ index.html [L]
+</IfModule>
+
+# 3. Custom Error Pages
+ErrorDocument 404 /404.html

@@ -156,7 +156,7 @@ export function BusinessTypeSwitcher({ onOpenAudit }: BusinessTypeSwitcherProps)
               <p className="font-display text-[14px] sm:text-[15.5px] font-bold text-navy leading-snug">
                 {active === 'ecommerce'
                   ? 'Authentic Supplements Store'
-                  : 'Career Coaching & Analytics'}
+                  : 'Career Coaching'}
               </p>
               <div className="text-right shrink-0">
                 <span className="inline-block font-mono text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-navy/70 bg-navy/5 px-2.5 py-1 rounded-md border border-navy/10">
