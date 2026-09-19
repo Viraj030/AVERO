@@ -52,7 +52,7 @@ export default function Page() {
           <FixAccordion />
 
           {/* 10. Process */}
-          <ProcessTimeline />
+          {/* <ProcessTimeline /> */}
 
           {/* 11. Proof / Case Studies */}
           <CaseStudies />

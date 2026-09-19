@@ -24,7 +24,7 @@ export function HeroAuditForm({ id = 'audit-form', onSuccess }: HeroAuditFormPro
     const digitsOnly = e.target.value.replace(/\D/g, '').slice(0, 10);
     setPhone(digitsOnly);
     if (digitsOnly.length > 0 && digitsOnly.length < 10) {
-      setPhoneError('Contact number must be exactly 10 digits');
+      setPhoneError('Phone/Whatsapp number must be exactly 10 digits');
     } else {
       setPhoneError('');
     }
@@ -49,7 +49,7 @@ export function HeroAuditForm({ id = 'audit-form', onSuccess }: HeroAuditFormPro
       return;
     }
     if (phone.length !== 10) {
-      setPhoneError('Contact number must be exactly 10 digits');
+      setPhoneError('Phone/Whatsapp number must be exactly 10 digits');
       return;
     }
 
@@ -177,7 +177,7 @@ export function HeroAuditForm({ id = 'audit-form', onSuccess }: HeroAuditFormPro
 
         <div>
           <label htmlFor="hero-phone" className="block text-xs font-medium text-white/80 uppercase tracking-wider font-mono">
-            Contact Number <span className="text-gold">*</span>
+            Phone/Whatsapp No <span className="text-gold">*</span>
           </label>
           <input
             id="hero-phone"

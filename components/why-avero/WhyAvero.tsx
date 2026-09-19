@@ -66,7 +66,7 @@ export function WhyAvero() {
     <Section
       id="why-avero"
       aria-labelledby="why-heading"
-      className="relative bg-[#FAF9F5] pt-8 pb-16 lg:py-22"
+      className="relative bg-white pt-8 pb-16 lg:py-22"
     >
       <div className="relative mx-auto max-w-shell">
         {/* Centered Header */}
@@ -110,7 +110,7 @@ export function WhyAvero() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.1, ease: [0.23, 1, 0.32, 1] }}
-              className="group flex flex-col justify-between rounded-[20px] sm:rounded-[24px] border border-navy/10 bg-white p-5 sm:p-7 shadow-[0_4px_25px_rgba(18,59,109,0.05)] transition-all duration-300 hover:-translate-y-1.5 hover:border-gold/60 hover:shadow-xl w-[78vw] sm:w-[65vw] md:w-auto shrink-0 snap-start"
+              className="group flex flex-col justify-between rounded-[20px] sm:rounded-[24px] border border-navy/10 bg-offwhite p-5 sm:p-7 shadow-[0_4px_25px_rgba(18,59,109,0.05)] transition-all duration-300 hover:-translate-y-1.5 hover:border-gold/60 hover:shadow-xl w-[78vw] sm:w-[65vw] md:w-auto shrink-0 snap-start"
             >
               {/* Card Top: Number badge */}
               <div>

@@ -35,7 +35,7 @@ export function validateAuditLead(input: AuditLeadValidationInput): ValidationRe
   if (input.phone !== undefined) {
     const cleanPhone = input.phone.replace(/\D/g, '');
     if (!cleanPhone || cleanPhone.length !== 10) {
-      errors.phone = 'Contact number must be exactly 10 digits';
+      errors.phone = 'Phone/Whatsapp number must be exactly 10 digits';
     }
   }
 

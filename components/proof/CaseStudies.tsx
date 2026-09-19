@@ -33,7 +33,7 @@ export function CaseStudies() {
     <Section
       id="results"
       aria-labelledby="results-heading"
-      className="bg-white pt-8 pb-16 lg:py-22"
+      className="bg-offwhite pt-8 pb-16 lg:py-22"
     >
       <div className="flex flex-col gap-6 border-b border-navy/12 pb-8 lg:flex-row lg:items-end lg:justify-between">
         <div>
@@ -154,8 +154,8 @@ function CaseStudyBlock({
         </dl>
       </div>
 
-      <div className="overflow-hidden rounded-card border border-navy/12 bg-offwhite h-fit shadow-xs">
-        <div className="flex items-center justify-between gap-3 border-b border-navy/10 px-4 py-3 bg-offwhite">
+      <div className="overflow-hidden rounded-card border border-navy/12 bg-white h-fit shadow-xs">
+        <div className="flex items-center justify-between gap-3 border-b border-navy/10 px-4 py-3 bg-white">
           <p className="font-display text-[14px] sm:text-[15.5px] font-bold text-navy leading-snug">
             {study.client}
           </p>
@@ -192,7 +192,7 @@ function CaseStudyBlock({
 
         <dl className="grid grid-cols-2 gap-px bg-navy/10 sm:grid-cols-4">
           {study.metrics.map((metric) => (
-            <div key={metric.label} className="bg-offwhite px-3.5 sm:px-4 py-3.5 sm:py-4">
+            <div key={metric.label} className="bg-white px-3.5 sm:px-4 py-3.5 sm:py-4">
               <dt className="font-mono text-[10.5px] font-semibold uppercase tracking-eyebrow text-navy/75">
                 {metric.label}
               </dt>

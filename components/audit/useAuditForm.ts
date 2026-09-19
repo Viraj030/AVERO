@@ -89,7 +89,7 @@ export function useAuditForm(onClose: () => void) {
     if (!lead.website.trim()) nextErrors.website = 'Enter your website';
     const cleanPhone = lead.phone.replace(/\D/g, '');
     if (!cleanPhone || cleanPhone.length !== 10) {
-      nextErrors.phone = 'Contact number must be exactly 10 digits';
+      nextErrors.phone = 'Phone/Whatsapp number must be exactly 10 digits';
     }
     setErrors(nextErrors);
     return Object.keys(nextErrors).length === 0;
