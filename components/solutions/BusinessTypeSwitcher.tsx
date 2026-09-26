@@ -140,7 +140,7 @@ export function BusinessTypeSwitcher({ onOpenAudit }: BusinessTypeSwitcherProps)
             </ul>
 
             <div className="mt-9">
-              <Button variant="secondary" size="lg" onClick={handleOpenAudit}>
+              <Button variant="primary" size="lg" onClick={handleOpenAudit}>
                 {panel.cta}
                 <ArrowRightIcon
                   className="h-4 w-4 transition-transform duration-200 ease-premium group-hover:translate-x-1"

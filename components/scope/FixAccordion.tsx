@@ -2,13 +2,16 @@
 
 import React, { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { PlusIcon } from 'lucide-react';
+import { ArrowRightIcon, PlusIcon } from 'lucide-react';
 import { fixCategories } from '@/data/fixCategories';
 import { Eyebrow } from '@/components/ui/Eyebrow';
 import { Section } from '@/components/ui/Section';
+import { Button } from '@/components/ui/Button';
+import { useAuditModal } from '@/components/audit/AuditModalContext';
 
 export function FixAccordion() {
   const [open, setOpen] = useState<string | null>(null);
+  const modal = useAuditModal();
 
   return (
     <Section
@@ -112,6 +115,17 @@ export function FixAccordion() {
             );
           })}
         </div>
+      </div>
+
+      {/* Mobile-only CTA after scope section */}
+      <div className="mt-10 sm:hidden">
+        <Button size="lg" onClick={modal.openAudit} aria-haspopup="dialog" className="w-full">
+          Get My 15-Mins Audit
+          <ArrowRightIcon
+            className="h-4 w-4 transition-transform duration-200 ease-premium group-hover:translate-x-1"
+            aria-hidden="true"
+          />
+        </Button>
       </div>
     </Section>
   );
